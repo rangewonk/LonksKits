@@ -17,7 +17,6 @@ import net.minecraft.server.v1_7_R4.NBTTagCompound;
 import net.minecraft.server.v1_7_R4.NBTTagList;
 import net.minecraft.server.v1_7_R4.PacketPlayOutEntityEquipment;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -123,7 +122,6 @@ public class PLib {
 				}
 			}
 		} else {
-			Bukkit.broadcastMessage("3");
 			target.removePotionEffect(PotionEffectType.INVISIBILITY);
 			MetaLists.PLAYERS_INVISIBLE.remove(target);
 			Main.ghostManager.addPlayer(target);

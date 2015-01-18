@@ -46,10 +46,6 @@ commands:
     aliases: [point]
     description: Allows you to do stuff with points
     usage: /Points Help
-  Highscore:
-    aliases: [highscores, hs]
-    description: Shows you the highscore board
-    usage: /Highscore
   KitNick:
     description: Lets you change nicknames for the kitpvp world
     usage: /KitNick [PlayerName] [NickName / RESET]
