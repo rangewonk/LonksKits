@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.Callable;
 
 import me.confuser.barapi.BarAPI;
 
@@ -30,16 +31,12 @@ public class Points {
 	}
 
 	public static void update(final String playerName, final World world) {
-		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, new Runnable() {
-			@Override
-			public void run() {
-				Player p = Bukkit.getPlayer(playerName);
-				if (p != null && p.isOnline() && Locations.gameWorld != null && Locations.gameWorld.equals(world))
-					BarAPI.setMessage(p, ChatColor.AQUA + "" + ChatColor.BOLD + "User: " + ChatColor.GREEN
-							+ ChatColor.BOLD + p.getName() + "    " + ChatColor.AQUA + ChatColor.BOLD + "Points: "
-							+ ChatColor.GREEN + ChatColor.BOLD + get(playerName));
-			}
-		});
+		Player p = Bukkit.getPlayer(playerName);
+		if (p != null && p.isOnline() && Locations.gameWorld != null && Locations.gameWorld.equals(world))
+			BarAPI.setMessage(p,
+					ChatColor.AQUA + "" + ChatColor.BOLD + "User: " + ChatColor.GREEN + ChatColor.BOLD + p.getName()
+							+ "    " + ChatColor.AQUA + ChatColor.BOLD + "Points: " + ChatColor.GREEN + ChatColor.BOLD
+							+ get(playerName));
 	}
 
 	public static void add(String playerName, Integer money) {
@@ -135,15 +132,15 @@ public class Points {
 	}
 
 	public static void updateSigns(final ArrayList<String> scores) {
-		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, new Runnable() {
-			@Override
-			public void run() {
+
+		Main.plugin.getServer().getScheduler().callSyncMethod(Main.plugin, new Callable<Boolean>() {
+			public Boolean call() {
 				if (lastScores != null)
 					if (lastScores == scores)
-						return;
+						return true;
 				lastScores = scores;
 				if (scores == null)
-					return;
+					return true;
 				for (Entry<Integer, ArrayList<Location>> entry : Main.signs.entrySet())
 					for (Location loc : entry.getValue()) {
 						if (loc.getBlock().getState() instanceof Sign) {
@@ -175,6 +172,7 @@ public class Points {
 							sign.update();
 						}
 					}
+				return true;
 			}
 		});
 	}
