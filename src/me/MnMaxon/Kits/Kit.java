@@ -292,7 +292,7 @@ public class Kit {
 				new Superman(), new Tiger(), new Shark(), new Ripper(), new Pig(), new Hawkeye(), new Creeper(),
 				new Cowboy(), new Blink(), new Hooker(), new Snowman(), new Clone(), new Maverick(), new Assassin(),
 				new Dragon(), new Morter(), new Kamikaze(), new Tele(), new Killer(), new DemoMan(), new Flinger(),
-				new Portastomp(), new BeastMaster(), new King(), new Legolas() };
+				new Portastomp(), new BeastMaster(), new King(), new Legolas(), new John() };
 		for (Kit kit : kitList)
 			kits.put(kit.getName().toLowerCase(), kit);
 		kits.put(new OneVSOne().getName().toLowerCase(),new OneVSOne());

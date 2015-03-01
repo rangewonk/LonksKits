@@ -5,6 +5,7 @@ import me.MnMaxon.Kits.Assassin;
 import me.MnMaxon.Kits.Casper;
 import me.MnMaxon.Kits.HotHead;
 import me.MnMaxon.Kits.Hulk;
+import me.MnMaxon.Kits.John;
 import me.MnMaxon.LonksKits.Death;
 import me.MnMaxon.LonksKits.Locations;
 import me.MnMaxon.LonksKits.MetaLists;
@@ -36,6 +37,16 @@ public class onCrouch implements Listener {
 			if (MetaLists.PLAYERS.get(e.getPlayer()) instanceof Assassin) {
 				onCrouch.Assasin(e.getPlayer());
 			} else if (MetaLists.PLAYERS.get(e.getPlayer()) instanceof HotHead) {
+				if (e.isSneaking() && !Locations.inSafe(e.getPlayer().getLocation())) {
+					e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 2 * 20, 1));
+					for (Entity ent : e.getPlayer().getNearbyEntities(4, 4, 4))
+						if (Main.canDamage(ent)) {
+							if (MetaLists.PLAYERS.contains(ent))
+								Death.update((Player) ent, e.getPlayer(), "was burned by");
+							ent.setFireTicks(20);
+						}
+				}
+			} else if (MetaLists.PLAYERS.get(e.getPlayer()) instanceof John) {
 				if (e.isSneaking() && !Locations.inSafe(e.getPlayer().getLocation())) {
 					e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 2 * 20, 1));
 					for (Entity ent : e.getPlayer().getNearbyEntities(4, 4, 4))

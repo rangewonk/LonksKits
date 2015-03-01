@@ -208,3 +208,5 @@ commands:
     description: Gives you the Bacon kit
   Legolas:
     description: Gives you the Legolas kit
+  John:
+    description: Gives you the John kit
