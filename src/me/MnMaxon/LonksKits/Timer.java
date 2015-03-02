@@ -31,7 +31,7 @@ public class Timer {
 				minionTimer();
 				minuteTimer++;
 
-				if (minuteTimer > 60) {
+				if (minuteTimer > 1200) {
 					minuteTimer = 0;
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
 						@Override
