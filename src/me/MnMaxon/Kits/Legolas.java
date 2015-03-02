@@ -37,12 +37,16 @@ public class Legolas extends Kit {
 	@Override
 	public ItemStack[] getArmorContents() {
 		ItemStack[] cont = new ItemStack[4];
-		ItemStack boots = setColor(unbreak(easyItem(null, Material.LEATHER_BOOTS, 0, null, 1)), Color.BLACK);
+		ItemStack chest = setColor(unbreak(easyItem(null, Material.LEATHER_CHESTPLATE, 0, null, 1)), Color.FUCHSIA);
+		chest.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
+		ItemStack pants = setColor(unbreak(easyItem(null, Material.LEATHER_LEGGINGS, 0, null, 1)), Color.FUCHSIA);
+		pants.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
+		ItemStack boots = setColor(unbreak(easyItem(null, Material.LEATHER_BOOTS, 0, null, 1)), Color.FUCHSIA);
 		boots.addEnchantment(Enchantment.PROTECTION_FALL, 4);
 		boots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
 		cont[3] = null;
-		cont[2] = null;
-		cont[1] = null;
+		cont[2] = chest;
+		cont[1] = pants;
 		cont[0] = boots;
 		return cont;
 	}

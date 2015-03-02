@@ -13,6 +13,7 @@ import me.MnMaxon.Kits.Cowboy;
 import me.MnMaxon.Kits.Fisherman;
 import me.MnMaxon.Kits.Hooker;
 import me.MnMaxon.Kits.HotHead;
+import me.MnMaxon.Kits.John;
 import me.MnMaxon.Kits.Hulk;
 import me.MnMaxon.Kits.Jumper;
 import me.MnMaxon.Kits.Kangaroo;
@@ -260,7 +261,7 @@ public class PlayerListener implements Listener {
 			e.setTo(newLoc);
 			return;
 		}
-		if (kit instanceof Shark || kit instanceof HotHead) {
+		if (kit instanceof Shark || kit instanceof HotHead || kit instanceof John) {
 			if ((p.getLocation().getBlock().getType().equals(Material.WATER)
 					|| p.getLocation().getBlock().getType().equals(Material.STATIONARY_WATER)
 					|| p.getEyeLocation().getBlock().getType().equals(Material.WATER) || p.getEyeLocation().getBlock()
@@ -271,6 +272,9 @@ public class PlayerListener implements Listener {
 					p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 10 * 20, 0));
 					p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 10 * 20, 1));
 				} else if (kit instanceof HotHead) {
+					p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 6 * 20, 0));
+					p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 6 * 20, 0));
+				} else if (kit instanceof John) {
 					p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 6 * 20, 0));
 					p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 6 * 20, 0));
 				}
