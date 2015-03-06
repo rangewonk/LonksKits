@@ -210,3 +210,5 @@ commands:
     description: Gives you the Legolas kit
   John:
     description: Gives you the John kit
+  UltimateDeath:
+    description: Gives you the UltimateDeath kit
