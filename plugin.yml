@@ -214,4 +214,5 @@ commands:
     description: Gives you the UltimateDeath kit
   Falcon:
     description: Gives you the Falcon kit
-    
+  Easter:
+    description: Gives you the Easter kit

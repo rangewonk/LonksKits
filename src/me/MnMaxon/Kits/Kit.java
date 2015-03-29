@@ -283,7 +283,7 @@ public class Kit {
 	}
 
 	public static void setUpList() {
-		Kit[] kitList = { new PvP(), new Archer(), new Fisherman(), new Girl(), new Porcupine(), new Anvil(),
+		Kit[] kitList = { new Easter(), new PvP(), new Archer(), new Fisherman(), new Girl(), new Porcupine(), new Anvil(),
 				new Troll(), new Monkey(), new Casper(), new Switcher(), new Jumper(), new Chomp(), new Stimpy(),
 				new Jedi(), new Elder(), new Turtle(), new Spider(), new Spartan(), new Shooter(), new Berserker(),
 				new Spy(), new Snake(), new Wizard(), new Hyper(), new Flamer(), new Mooshroom(), new Monk(),

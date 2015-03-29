@@ -301,7 +301,7 @@ public final class Main extends JavaPlugin {
 	public static void giveSpawnItems(Player p) {
 		p.getInventory().setItem(0, Kit.easyItem(Messages.ITEM_SELECTOR, Material.NETHER_STAR, 0, null, 1));
 		p.getInventory().setItem(1, Kit.easyItem(Messages.ITEM_SHOP, Material.WATCH, 0, null, 1));
-		ItemStack book = Kit.easyItem(Messages.ITEM_BOOK, Material.WRITTEN_BOOK, 3, null, 1);
+		ItemStack book = Kit.easyItem(Messages.ITEM_BOOK, Material.WRITTEN_BOOK, 0, null, 1);
 
 		BookMeta meta = (BookMeta) book.getItemMeta();
 		List<String> rawPages = new ArrayList<String>();

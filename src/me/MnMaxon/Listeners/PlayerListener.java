@@ -608,7 +608,7 @@ public class PlayerListener implements Listener {
 			return;
 
 		} else if (!MetaLists.TP_AROUND_PLOT.contains(e.getPlayer())
-				&& (e.getMessage().contains("p home") || e.getMessage().contains("plotme home"))) {
+				&& (e.getMessage().contains("p home") || e.getMessage().contains("plotme home") || e.getMessage().contains("p h") || e.getMessage().contains("plotme h"))) {
 
 			e.setCancelled(true);
 			TpCountdown.teleport(e.getPlayer(), "p home");
