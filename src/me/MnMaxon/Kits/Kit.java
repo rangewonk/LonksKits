@@ -283,7 +283,7 @@ public class Kit {
 	}
 
 	public static void setUpList() {
-		Kit[] kitList = { new Easter(), new PvP(), new Archer(), new Fisherman(), new Girl(), new Porcupine(), new Anvil(),
+		Kit[] kitList = {  new PvP(), new Archer(), new Fisherman(), new Girl(), new Porcupine(), new Anvil(),
 				new Troll(), new Monkey(), new Casper(), new Switcher(), new Jumper(), new Chomp(), new Stimpy(),
 				new Jedi(), new Elder(), new Turtle(), new Spider(), new Spartan(), new Shooter(), new Berserker(),
 				new Spy(), new Snake(), new Wizard(), new Hyper(), new Flamer(), new Mooshroom(), new Monk(),
@@ -292,7 +292,7 @@ public class Kit {
 				new Superman(), new Tiger(), new Shark(), new Ripper(), new Pig(), new Hawkeye(), new Creeper(),
 				new Cowboy(), new Blink(), new Hooker(), new Snowman(), new Clone(), new Maverick(), new Assassin(),
 				new Dragon(), new Morter(), new Kamikaze(), new Tele(), new Killer(), new DemoMan(), new Flinger(),
-				new Portastomp(), new BeastMaster(), new King(), new Legolas(), new John(), new UltimateDeath(), new Falcon()  };
+				new Portastomp(), new BeastMaster(), new King(), new Easter(), new Legolas(), new John(), new UltimateDeath(), new Falcon()  };
 		for (Kit kit : kitList)
 			kits.put(kit.getName().toLowerCase(), kit);
 		kits.put(new OneVSOne().getName().toLowerCase(),new OneVSOne());

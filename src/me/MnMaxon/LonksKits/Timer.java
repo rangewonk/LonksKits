@@ -31,12 +31,23 @@ public class Timer {
 				minionTimer();
 				minuteTimer++;
 
+				
+				if (minuteTimer % 60 == 0) {
+					 Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(
+					  Main.plugin, new Runnable () { 
+					   @Override 
+					   public void run() 
+					   { 
+					    Shop.timer();
+					   }
+					  }, 1L);
+					}
 				if (minuteTimer > 2400) {
 					minuteTimer = 0;
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
 						@Override
 						public void run() {
-							Shop.timer();
+						//	Shop.timer();
 							Points.updateSigns(Points.highScore());
 						}
 					}, 1L);
