@@ -6,8 +6,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-import me.confuser.barapi.BarAPI;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -28,15 +26,6 @@ public class Points {
 					update(playerName, p.getWorld());
 			}
 		});
-	}
-
-	public static void update(final String playerName, final World world) {
-		Player p = Bukkit.getPlayer(playerName);
-		if (p != null && p.isOnline() && Locations.gameWorld != null && Locations.gameWorld.equals(world))
-			BarAPI.setMessage(p,
-					ChatColor.AQUA + "" + ChatColor.BOLD + "User: " + ChatColor.GREEN + ChatColor.BOLD + p.getName()
-							+ "    " + ChatColor.AQUA + ChatColor.BOLD + "Points: " + ChatColor.GREEN + ChatColor.BOLD
-							+ get(playerName));
 	}
 
 	public static void add(String playerName, Integer money) {
