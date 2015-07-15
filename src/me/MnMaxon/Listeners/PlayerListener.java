@@ -79,7 +79,6 @@ public class PlayerListener implements Listener {
 			return;
 		MetaLists.TP_AROUND_PLOT.remove(e.getPlayer());
 		TpCountdown.cancel(e.getPlayer());
-		Points.update(e.getPlayer().getName(), e.getTo().getWorld());
 		if (!e.getPlayer().getGameMode().equals(GameMode.CREATIVE) && !Spectator.isSpectator(e.getPlayer())) {
 			e.getPlayer().setFlying(false);
 			e.getPlayer().setAllowFlight(false);
@@ -556,13 +555,6 @@ public class PlayerListener implements Listener {
 			MetaLists.PLAYERS.add(p, null);
 			NickName.setCustomName(p);
 			Main.giveSpawnItems(p);
-			final String playerName = p.getName();
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
-				@Override
-				public void run() {
-					Points.update(playerName, Locations.spawn.getWorld());
-				}
-			}, 5L);
 		}
 		if (Locations.gameWorld != null && !Locations.gameWorld.equals(e.getRespawnLocation().getWorld())) {
 			Main.ghostManager.removePlayer(p);
