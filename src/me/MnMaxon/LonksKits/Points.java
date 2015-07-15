@@ -17,33 +17,17 @@ import org.bukkit.entity.Player;
 public class Points {
 	public static ArrayList<String> lastScores = null;
 
-	public static void update(final String playerName) {
-		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, new Runnable() {
-			@Override
-			public void run() {
-				Player p = Bukkit.getPlayer(playerName);
-				if (p != null && p.isOnline())
-					update(playerName, p.getWorld());
-			}
-		});
-	}
-
 	public static void add(String playerName, Integer money) {
 		money = money + get(playerName);
 		Main.playerData.set("Players." + playerName + ".Points", money);
 		Main.playerData.save();
-		update(playerName);
 	}
 
 	public static Boolean remove(String playerName, Integer money) {
 		money = get(playerName) - money;
-		if (money < 0) {
-			update(playerName);
-			return false;
-		}
+		if (money < 0)			return false;
 		Main.playerData.set("Players." + playerName + ".Points", money);
 		Main.playerData.save();
-		update(playerName);
 		return true;
 	}
 
@@ -57,7 +41,6 @@ public class Points {
 	public static void set(String playerName, Integer money) {
 		Main.playerData.set("Players." + playerName + ".Points", money);
 		Main.playerData.save();
-		update(playerName);
 	}
 
 	public static void help(CommandSender s) {
