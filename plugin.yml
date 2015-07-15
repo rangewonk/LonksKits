@@ -2,7 +2,7 @@ name: Lonks_Kits
 version: 1.0
 main: me.MnMaxon.LonksKits.Main
 author: MnMaxon
-depend: [ProtocolLib, BarAPI]
+depend: [ProtocolLib]
 softdepend: [Essentials, DisguiseCraft, VanishNoPacket, HealthBar]
 commands:
   KitPvP:
