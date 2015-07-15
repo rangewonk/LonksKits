@@ -8,6 +8,5 @@
 	<classpathentry kind="lib" path="C:/Users/Tom/Desktop/Minecraft/eclipse/lk plugin/Essentials.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Tom/Desktop/Minecraft/eclipse/lk plugin/ProtocolLib-3.4.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Tom/Desktop/Minecraft/eclipse/lk plugin/VanishNoPacket.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Tom/Desktop/BarAPI.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
