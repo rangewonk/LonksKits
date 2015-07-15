@@ -34,7 +34,6 @@ import me.MnMaxon.LonksKits.NickName;
 import me.MnMaxon.LonksKits.Points;
 import me.MnMaxon.LonksKits.Spectator;
 import me.MnMaxon.LonksKits.TpCountdown;
-import me.confuser.barapi.BarAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -80,7 +79,6 @@ public class PlayerListener implements Listener {
 			return;
 		MetaLists.TP_AROUND_PLOT.remove(e.getPlayer());
 		TpCountdown.cancel(e.getPlayer());
-		BarAPI.removeBar(e.getPlayer());
 		Points.update(e.getPlayer().getName(), e.getTo().getWorld());
 		if (!e.getPlayer().getGameMode().equals(GameMode.CREATIVE) && !Spectator.isSpectator(e.getPlayer())) {
 			e.getPlayer().setFlying(false);
@@ -508,10 +506,6 @@ public class PlayerListener implements Listener {
 			Main.config.set(oldName, null);
 			Main.config.save();
 		}
-		if (p.isValid() && Locations.gameWorld != null && p.getLocation().getWorld().equals(Locations.gameWorld))
-			Points.update(p.getName());
-		else
-			BarAPI.removeBar(p);
 		DisguiseCraftMethods.unDisguise(p);
 		if (!p.getGameMode().equals(GameMode.CREATIVE)) {
 			p.setFlying(false);
