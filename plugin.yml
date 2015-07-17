@@ -216,3 +216,5 @@ commands:
     description: Gives you the Falcon kit
   Easter:
     description: Gives you the Easter kit
+  Builder:
+    description: Gives you the Builder kit
