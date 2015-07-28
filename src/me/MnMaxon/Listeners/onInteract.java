@@ -1019,7 +1019,7 @@ public class onInteract implements Listener {
 				}
 			}
 	}
-	public static void ThorsAxe(Player p, PlayerInteractEvent event) {
+	public static void ThorsAxe(final Player p, PlayerInteractEvent event) {
 		if(Locations.inSafe(p.getLocation()) || Locations.inSafe(event.getClickedBlock().getLocation())){
 			p.sendMessage(Messages.SAFEZONE_IN);
 			return;
@@ -1027,8 +1027,13 @@ public class onInteract implements Listener {
 		if (Cooldown.hasCooldown(p, "Thors Axe", true))
 			return;
 		Main.cool.add(new Cooldown(35, p, "Thors Axe"));
+		MetaLists.IGNORE_DAMAGE_LIGHTNING.add( p );
 		     event.getPlayer().getWorld().strikeLightning(event.getClickedBlock().getWorld().getHighestBlockAt(event.getClickedBlock().getLocation()).getLocation().clone().add(0, 1, 0)).setFireTicks(0);
-
+		     Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
+		    	   public void run() {
+		    	    MetaLists.IGNORE_DAMAGE_LIGHTNING.remove( p );
+		    	   }
+		    	  }, 40L);
 	}
 
 	@SuppressWarnings("deprecation")

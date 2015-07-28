@@ -11,6 +11,7 @@ import me.MnMaxon.Kits.Flamer;
 import me.MnMaxon.Kits.Jumper;
 import me.MnMaxon.Kits.Kangaroo;
 import me.MnMaxon.Kits.Ninja;
+import me.MnMaxon.Kits.Thor;
 import me.MnMaxon.Kits.Portastomp;
 import me.MnMaxon.Kits.Shark;
 import me.MnMaxon.Kits.Turtle;
@@ -166,6 +167,10 @@ public class onEntityDamage implements Listener {
 				Main.damageIgnoreArmor(e.getEntity(), (((Player) e.getEntity()).getMaxHealth() / 2) - 5, true);
 				return;
 			}
+			 if ((e.getCause().equals(DamageCause.LIGHTNING) && MetaLists.IGNORE_DAMAGE_LIGHTNING.contains(e.getEntity()))) {
+					e.setCancelled(true);
+					return;
+				}
 		}
 	}
 

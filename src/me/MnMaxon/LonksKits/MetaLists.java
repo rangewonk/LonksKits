@@ -41,6 +41,8 @@ public enum MetaLists {
 	SPAWN_TO("toSpawn"), SPAWN_ANTI("antiSpawn"),
 
 	ONE_V_ONE_FIGHT("OneVOneMe"), ONE_V_ONE_REQUEST("ONE_V_ONE_REQUEST"), ONE_V_ONE_WAITING_RESPONSE("ONE_V_ONE_PLAYER"),
+	
+	IGNORE_DAMAGE_LIGHTNING("ignoreLightning"),
 
 	PIGGY("PIGGY");
 
