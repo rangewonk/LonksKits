@@ -103,7 +103,7 @@ public class PLib {
 			toggleVisibility(target, true);
 	}
 
-	public static void toggleVisibility(final Player target, boolean invisible) {
+	/*public static void toggleVisibility(final Player target, boolean invisible) {
 		if (invisible) {
 			target.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 15 * 20, 1));
 			MetaLists.PLAYERS_INVISIBLE.add(target);
@@ -119,8 +119,30 @@ public class PLib {
 					((CraftPlayer) player).getHandle().playerConnection.sendPacket(pack2);
 					((CraftPlayer) player).getHandle().playerConnection.sendPacket(pack3);
 					((CraftPlayer) player).getHandle().playerConnection.sendPacket(pack4);
+				}*/
+	public static void toggleVisibility(final Player target, boolean invisible) {
+		if (invisible) {
+			MetaLists.PLAYERS_INVISIBLE.add(target);
+			Main.ghostManager.removePlayer(target);
+
+			for (Player player : target.getWorld().getPlayers()) {
+				if (!player.equals(target)) {
+                                    player.hidePlayer(target);
 				}
 			}
+		} else {
+			MetaLists.PLAYERS_INVISIBLE.remove(target);
+			Main.ghostManager.addPlayer(target);
+			if (MetaLists.PLAYERS.contains(target) && MetaLists.PLAYERS.get(target) != null && target.isValid()) {
+
+				for (Player player : target.getWorld().getPlayers())
+					if (!player.equals(target)) {
+                                            player.showPlayer(target);
+					}
+			}
+		}
+	}/*
+}
 		} else {
 			target.removePotionEffect(PotionEffectType.INVISIBILITY);
 			MetaLists.PLAYERS_INVISIBLE.remove(target);
@@ -144,7 +166,7 @@ public class PLib {
 					}
 			}
 		}
-	}
+	 } */
 
 	public static void setupProtatocalLib() {
 		Main.protocolManager = ProtocolLibrary.getProtocolManager();
@@ -196,8 +218,9 @@ public class PLib {
 							PacketContainer useEntity = Main.protocolManager.createPacket(
 									PacketType.Play.Client.USE_ENTITY, false);
 							useEntity.getIntegers().write(0, hit.getEntityId());
-							useEntity.getEntityUseActions().write(0, EntityUseAction.ATTACK);
+		
 							try {
+								useEntity.getEntityUseActions().write(0, EntityUseAction.ATTACK);
 								Main.protocolManager.recieveClientPacket(e.getPlayer(), useEntity);
 							} catch (Exception ex) {
 								ex.printStackTrace();

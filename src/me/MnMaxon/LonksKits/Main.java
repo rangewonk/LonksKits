@@ -253,6 +253,7 @@ public final class Main extends JavaPlugin {
 		if (p.getVehicle() != null && !(p.getVehicle() instanceof Player))
 			p.getVehicle().remove();
 		DisguiseCraftMethods.unDisguise(p);
+		if(MetaLists.PLAYERS_INVISIBLE.contains( p)) PLib.toggleVisibility(p, false);
 		MetaLists.PLAYERS.remove(p);
 		MetaLists.PLAYERS.remove(p);
 		CloneManager.remove(p);

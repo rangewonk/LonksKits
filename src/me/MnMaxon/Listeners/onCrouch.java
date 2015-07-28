@@ -59,14 +59,36 @@ public class onCrouch implements Listener {
 			} else if (MetaLists.PLAYERS.get(e.getPlayer()) instanceof Casper) {
 				final Player p = e.getPlayer();
 				PLib.toggleVisibility(p, e.isSneaking());
-				PacketPlayOutEntityEquipment packet;
+				PacketPlayOutEntityEquipment packet1;
+				PacketPlayOutEntityEquipment packet2;
+				PacketPlayOutEntityEquipment packet3;
+				PacketPlayOutEntityEquipment packet4;
+
+				if (e.isSneaking()){
+				  packet1 = new PacketPlayOutEntityEquipment(p.getEntityId(), 0, null);
+				  packet2 = new PacketPlayOutEntityEquipment(p.getEntityId(), 1, null);
+				  packet3 = new PacketPlayOutEntityEquipment(p.getEntityId(), 2, null);
+				  packet4 = new PacketPlayOutEntityEquipment(p.getEntityId(), 3, null);
+				}else{
+				  packet1 = new PacketPlayOutEntityEquipment(p.getEntityId(), 0, CraftItemStack.asNMSCopy(p.getInventory().getBoots()));
+				  packet2 = new PacketPlayOutEntityEquipment(p.getEntityId(), 1, CraftItemStack.asNMSCopy(p.getInventory().getLeggings()));
+				  packet3 = new PacketPlayOutEntityEquipment(p.getEntityId(), 2, CraftItemStack.asNMSCopy(p.getInventory().getChestplate()));
+				  packet4 = new PacketPlayOutEntityEquipment(p.getEntityId(), 3, CraftItemStack.asNMSCopy(p.getInventory().getHelmet()));
+				}
+				for (Player player : p.getWorld().getPlayers()){
+				  ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet1);
+				  ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet2);
+				  ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet3);
+				  ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet4);
+				}
+			/*	PacketPlayOutEntityEquipment packet;
 				if (e.isSneaking())
 					packet = new PacketPlayOutEntityEquipment(p.getEntityId(), 0, null);
 				else
 					packet = new PacketPlayOutEntityEquipment(p.getEntityId(), 0, CraftItemStack.asNMSCopy(p
 							.getItemInHand()));
 				for (Player player : p.getWorld().getPlayers())
-					((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+					((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);*/
 			}
 		}
 	}
