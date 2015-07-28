@@ -218,3 +218,5 @@ commands:
     description: Gives you the Easter kit
   Builder:
     description: Gives you the Builder kit
+  Thor:
+    description: Gives you the Thor kit

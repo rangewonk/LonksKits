@@ -136,6 +136,8 @@ public class onInteract implements Listener {
 						Claw(p);
 					else if (name.equalsIgnoreCase("lasso"))
 						Lasso(p);
+					else if (name.equalsIgnoreCase("Thors Axe"))
+						ThorsAxe(p, e);
 					else if (name.equalsIgnoreCase("Blinker"))
 						Blink(p);
 					else if (name.equalsIgnoreCase("Boost"))
@@ -1016,6 +1018,17 @@ public class onInteract implements Listener {
 					ent.setVelocity(ent.getVelocity().add(velocity));
 				}
 			}
+	}
+	public static void ThorsAxe(Player p, PlayerInteractEvent event) {
+		if(Locations.inSafe(p.getLocation()) || Locations.inSafe(event.getClickedBlock().getLocation())){
+			p.sendMessage(Messages.SAFEZONE_IN);
+			return;
+		}
+		if (Cooldown.hasCooldown(p, "Thors Axe", true))
+			return;
+		Main.cool.add(new Cooldown(35, p, "Thors Axe"));
+		     event.getPlayer().getWorld().strikeLightning(event.getClickedBlock().getWorld().getHighestBlockAt(event.getClickedBlock().getLocation()).getLocation().clone().add(0, 1, 0)).setFireTicks(0);
+
 	}
 
 	@SuppressWarnings("deprecation")
