@@ -136,7 +136,7 @@ public class onInteract implements Listener {
 						Claw(p);
 					else if (name.equalsIgnoreCase("lasso"))
 						Lasso(p);
-					else if (name.equalsIgnoreCase("Thors Axe"))
+					else if (name.equalsIgnoreCase("Thors Hammer"))
 						ThorsAxe(p, e);
 					else if (name.equalsIgnoreCase("Blinker"))
 						Blink(p);
@@ -1024,9 +1024,9 @@ public class onInteract implements Listener {
 			p.sendMessage(Messages.SAFEZONE_IN);
 			return;
 		}
-		if (Cooldown.hasCooldown(p, "Thors Axe", true))
+		if (Cooldown.hasCooldown(p, "Thors Hammer", true))
 			return;
-		Main.cool.add(new Cooldown(35, p, "Thors Axe"));
+		Main.cool.add(new Cooldown(35, p, "Thors Hammer"));
 		MetaLists.IGNORE_DAMAGE_LIGHTNING.add( p );
 		     event.getPlayer().getWorld().strikeLightning(event.getClickedBlock().getWorld().getHighestBlockAt(event.getClickedBlock().getLocation()).getLocation().clone().add(0, 1, 0)).setFireTicks(0);
 		     Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {

@@ -21,8 +21,9 @@ public class Thor extends Kit {
 		//ItemStack sword = unbreak(easyItem(null, Material.WOOD_AXE, 0, null, 1));
 		//sword.addEnchantment(Enchantment.DAMAGE_ALL, 3);
 		//cont[0] = sword;
-		cont[0] = easyItem(ChatColor.BLUE + "Thors Axe", Material.STONE_AXE, 0, null, 1);
+		cont[0] = easyItem(ChatColor.BLUE + "Thors Hammer", Material.STONE_AXE, 0, null, 1);
 		cont[0].addEnchantment(Enchantment.DAMAGE_ALL, 3);
+		cont[0].addUnsafeEnchantment(Enchantment.DURABILITY, 20);
 		cont = giveSoup(cont);
 		return cont;
 	}
