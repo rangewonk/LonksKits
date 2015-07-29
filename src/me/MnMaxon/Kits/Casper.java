@@ -27,11 +27,11 @@ public class Casper extends Kit {
 	public ItemStack[] getArmorContents() {
 		ItemStack[] cont = new ItemStack[4];
 		ItemStack helm = (unbreak(easyItem(null, Material.WOOL, 0, null, 1)));
-		ItemStack chest = (easyItem(null, Material.IRON_CHESTPLATE, 0, null, 1));
+		ItemStack chest = (unbreak(easyItem(null, Material.IRON_CHESTPLATE, 0, null, 1)));
 		chest.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-		ItemStack pants = (easyItem(null, Material.IRON_LEGGINGS, 0, null, 1));
+		ItemStack pants = (unbreak(easyItem(null, Material.IRON_LEGGINGS, 0, null, 1)));
 		pants.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-		ItemStack boots = (easyItem(null, Material.IRON_BOOTS, 0, null, 1));
+		ItemStack boots = (unbreak(easyItem(null, Material.IRON_BOOTS, 0, null, 1)));
 		boots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
 		cont[3] = helm;
 		cont[2] = chest;

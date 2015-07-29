@@ -16,6 +16,7 @@ import net.minecraft.server.v1_7_R4.EntityPlayer;
 import net.minecraft.server.v1_7_R4.NBTTagCompound;
 import net.minecraft.server.v1_7_R4.NBTTagList;
 import net.minecraft.server.v1_7_R4.PacketPlayOutEntityEquipment;
+import net.minecraft.server.v1_7_R4.PacketPlayOutPlayerInfo;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -30,7 +31,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.Packets;
 import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.ConnectionSide;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
@@ -127,7 +130,8 @@ public class PLib {
 
 			for (Player player : target.getWorld().getPlayers()) {
 				if (!player.equals(target)) {
-                                    player.hidePlayer(target);
+		//			hidePlayer(player, target);
+					player.hidePlayer(target);
 				}
 			}
 		} else {
@@ -171,7 +175,7 @@ public class PLib {
 	public static void setupProtatocalLib() {
 		Main.protocolManager = ProtocolLibrary.getProtocolManager();
 		Main.protocolManager.getAsynchronousManager()
-				.registerAsyncHandler(new PacketAdapter(Main.plugin, PacketType.Play.Client.ARM_ANIMATION) {
+				.registerAsyncHandler(new PacketAdapter(Main.plugin,  PacketType.Play.Client.ARM_ANIMATION) {
 					@Override
 					public void onPacketReceiving(PacketEvent e) {
 						if (e == null || e.getPlayer() == null || e.getPlayer().isDead())
@@ -215,7 +219,7 @@ public class PLib {
 
 						// Simulate a hit against the closest player
 						if (hit != null) {
-							PacketContainer useEntity = Main.protocolManager.createPacket(
+					/*		PacketContainer useEntity = Main.protocolManager.createPacket(
 									PacketType.Play.Client.USE_ENTITY, false);
 							useEntity.getIntegers().write(0, hit.getEntityId());
 		
@@ -224,6 +228,22 @@ public class PLib {
 								Main.protocolManager.recieveClientPacket(e.getPlayer(), useEntity);
 							} catch (Exception ex) {
 								ex.printStackTrace();
+							}*/
+							@SuppressWarnings("deprecation")
+							//PacketContainer useEntity = Main.protocolManager.createPacket(PacketType.Play.Client.USE_ENTITY, false);
+							PacketContainer useEntity = Main.protocolManager.createPacket(Packets.Client.USE_ENTITY, false);
+
+							useEntity.getIntegers().write(0, hit.getEntityId());							
+						//	useEntity.getIntegers().
+							//	write(0, observer.getEntityId()).
+								//write(1, hit.getEntityId()).
+							      //  write(2, 1 /* LEFT_CLICK */);
+														
+							try {
+							    //useEntity.getEntityUseActions().write(0, EntityUseAction.ATTACK);
+							    Main.protocolManager.recieveClientPacket(e.getPlayer(), useEntity);
+							} catch (Exception ex) {
+							    ex.printStackTrace();
 							}
 						}
 					}
@@ -367,4 +387,10 @@ public class PLib {
 	public static void removeArrows(Player p) {
 		((CraftPlayer) p).getHandle().getDataWatcher().watch(9, (byte) 0);
 	}
+	/*public static void hidePlayer(Player hiding, Player from) {
+	    from.hidePlayer(hiding);
+	    EntityPlayer nmsFrom = ((CraftPlayer) from).getHandle();
+	    EntityPlayer nmsHiding = ((CraftPlayer) hiding).getHandle();
+	    nmsFrom.playerConnection.sendPacket(new PacketPlayOutPlayerInfo(nmsHiding.getName(), true, 10));
+	}*/
 }

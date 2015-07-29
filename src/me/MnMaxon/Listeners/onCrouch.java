@@ -11,6 +11,7 @@ import me.MnMaxon.LonksKits.Locations;
 import me.MnMaxon.LonksKits.MetaLists;
 import me.MnMaxon.LonksKits.Cooldown;
 import me.MnMaxon.LonksKits.Main;
+import org.bukkit.inventory.ItemStack;
 import net.minecraft.server.v1_7_R4.PacketPlayOutEntityEquipment;
 
 import org.bukkit.Bukkit;
@@ -56,7 +57,7 @@ public class onCrouch implements Listener {
 							ent.setFireTicks(20);
 						}
 				}
-			} else if (MetaLists.PLAYERS.get(e.getPlayer()) instanceof Casper) {
+			/*} else if (MetaLists.PLAYERS.get(e.getPlayer()) instanceof Casper) {
 				final Player p = e.getPlayer();
 				PLib.toggleVisibility(p, e.isSneaking());
 				PacketPlayOutEntityEquipment packet1;
@@ -80,6 +81,23 @@ public class onCrouch implements Listener {
 				  ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet2);
 				  ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet3);
 				  ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet4);
+				}*/
+			}else if (MetaLists.PLAYERS.get(e.getPlayer()) instanceof Casper) {
+				Player p = e.getPlayer();
+				PLib.toggleVisibility(p, e.isSneaking());
+
+				if (e.isSneaking()){
+				    p.getInventory().setHelmet(null);
+				    p.getInventory().setChestplate(null);
+				    p.getInventory().setLeggings(null);
+				    p.getInventory().setBoots(null);
+				}else{
+					ItemStack[] armor = ((Casper)MetaLists.PLAYERS.get(e.getPlayer())).getArmorContents();
+				    p.getInventory().setHelmet(armor[3]);
+				    p.getInventory().setChestplate(armor[2]);
+				    p.getInventory().setLeggings(armor[1]);
+				    p.getInventory().setBoots(armor[0]); 
+				  }
 				}
 			/*	PacketPlayOutEntityEquipment packet;
 				if (e.isSneaking())
@@ -91,7 +109,7 @@ public class onCrouch implements Listener {
 					((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);*/
 			}
 		}
-	}
+	//}
 
 	public static void Assasin(Player p) {
 		if (Locations.inSafe(p.getLocation())) {

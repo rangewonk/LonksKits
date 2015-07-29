@@ -1020,6 +1020,7 @@ public class onInteract implements Listener {
 			}
 	}
 	public static void ThorsAxe(final Player p, PlayerInteractEvent event) {
+		if(event.getClickedBlock() == null) return;
 		if(Locations.inSafe(p.getLocation()) || Locations.inSafe(event.getClickedBlock().getLocation())){
 			p.sendMessage(Messages.SAFEZONE_IN);
 			return;
