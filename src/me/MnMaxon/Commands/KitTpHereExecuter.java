@@ -24,8 +24,8 @@ public class KitTpHereExecuter implements CommandExecutor {
 		if (p.hasPermission("Lonkskit.tphere"))
 			if (args.length == 1)
 				if (Bukkit.getServer().getPlayer(args[0]) != null)
-					if (Locations.gameWorld != null && Locations.gameWorld.equals(p.getWorld()))
-						if (Locations.gameWorld.equals(p.getLocation().getWorld())) {
+					if (Locations.gameWorld != null && Locations.gameWorld.equals(Bukkit.getServer().getPlayer(args[0]).getWorld()))
+						if (Locations.gameWorld.equals(p.getWorld())) {
 							MetaLists.TP_AROUND.add(Bukkit.getServer().getPlayer(args[0]));
 							Bukkit.getServer().getPlayer(args[0]).teleport(p.getLocation());
 							p.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] "

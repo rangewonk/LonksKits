@@ -5,7 +5,9 @@ import java.util.Map.Entry;
 
 import me.MnMaxon.LonksKits.MetaLists;
 import me.MnMaxon.Kits.DemoMan;
+import me.MnMaxon.Kits.Builder;
 import me.MnMaxon.Kits.Tele;
+import me.MnMaxon.LonksKits.BlockConstruct;
 import me.MnMaxon.LonksKits.CloneBlock;
 import me.MnMaxon.LonksKits.Cooldown;
 import me.MnMaxon.LonksKits.Death;
@@ -18,6 +20,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
@@ -78,7 +81,27 @@ public class BlockListener implements Listener {
 				e.setCancelled(true);
 				e.getPlayer().sendMessage(ChatColor.DARK_RED + "You have already placed 5 traps!");
 			}
-		} else if (MetaLists.PLAYERS.get(e.getPlayer()) instanceof Tele
+		}else if(MetaLists.PLAYERS.get(e.getPlayer()) instanceof Builder
+				&& e.getBlock().getType().equals(Material.BRICK)){
+			//Check if player or placed block is in the safezone
+			if (Locations.inSafe(e.getBlockAgainst().getLocation()) 
+					|| Locations.inSafe(e.getPlayer().getLocation())) {
+				e.getPlayer().sendMessage(ChatColor.DARK_RED + "You cannot build a wall there.");
+				return;
+			}
+			//Check cooldown
+			if (Cooldown.hasCooldown(e.getPlayer(), "Wall", true))
+				return;
+			
+			//Build wall
+			if(BlockConstruct.BuildWall(e.getBlock(), e.getPlayer(), Material.BRICK, 100L, 7, 3)){
+				Main.cool.add(new Cooldown(35, e.getPlayer(), "Wall"));
+				e.getPlayer().getWorld().playSound(e.getBlock().getLocation(), Sound.ANVIL_LAND, 0.35f, 0.35f);
+			}else{
+				e.getPlayer().sendMessage(ChatColor.DARK_RED + "You cannot build a wall there.");
+				return;
+			}
+		}else if (MetaLists.PLAYERS.get(e.getPlayer()) instanceof Tele
 				&& e.getBlock().getType().equals(Material.ENDER_PORTAL_FRAME)) {
 			if (Locations.inSafe(e.getBlockAgainst().getLocation()) || Locations.inSafe(e.getPlayer().getLocation())
 					|| e.getBlockAgainst().getType().equals(Material.SIGN)

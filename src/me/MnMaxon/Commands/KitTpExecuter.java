@@ -24,12 +24,18 @@ public class KitTpExecuter implements CommandExecutor {
 		if (p.hasPermission("Lonkskit.tp"))
 			if (args.length == 1)
 				if (Bukkit.getServer().getPlayer(args[0]) != null) {
-					if (Locations.gameWorld != null && Locations.gameWorld.equals(p.getLocation().getWorld())) {
-						MetaLists.TP_AROUND.add(p);
-						TpCountdown.teleport(p, Bukkit.getServer().getPlayer(args[0]).getLocation());
-						p.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] "
+					if (Locations.gameWorld != null &&
+							Locations.gameWorld.equals(Bukkit.getServer().getPlayer(args[0]).getWorld())){
+						if (Locations.gameWorld.equals(p.getWorld())){
+							MetaLists.TP_AROUND.add(p);
+							TpCountdown.teleport(p, Bukkit.getServer().getPlayer(args[0]).getLocation());
+							p.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] "
 								+ ChatColor.GREEN + "You have been teleported to "
 								+ Bukkit.getServer().getPlayer(args[0]).getName());
+						}else 
+							p.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] "
+								+ ChatColor.RED + "You"
+								+ " are not in the KitPvP world");
 					} else
 						p.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] "
 								+ ChatColor.RED + Bukkit.getServer().getPlayer(args[0]).getName()

@@ -12,6 +12,7 @@ import me.MnMaxon.Kits.Hulk;
 import me.MnMaxon.Kits.Hyper;
 import me.MnMaxon.Kits.Kit;
 import me.MnMaxon.Kits.Snowman;
+import me.MnMaxon.LonksKits.BlockConstruct;
 import me.MnMaxon.LonksKits.CustomEntityPig;
 import me.MnMaxon.LonksKits.Locations;
 import me.MnMaxon.LonksKits.Messages;
@@ -30,6 +31,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Egg;
@@ -134,6 +136,8 @@ public class onInteract implements Listener {
 						Fly(p);
 					else if (name.equalsIgnoreCase("claw"))
 						Claw(p);
+					else if (name.equalsIgnoreCase("dome"))
+						BuildDome(p);
 					else if (name.equalsIgnoreCase("lasso"))
 						Lasso(p);
 					else if (name.equalsIgnoreCase("Thors Hammer"))
@@ -343,6 +347,23 @@ public class onInteract implements Listener {
 		}, 1L);
 	}
 
+	public static void BuildDome(Player p) {
+		if (Locations.inSafe(p.getLocation())) {
+			p.sendMessage(ChatColor.DARK_RED + "You cannot build a dome there.");
+			return;
+		}
+		if (Cooldown.hasCooldown(p, "Dome", true))
+			return;
+		
+		if(BlockConstruct.BuildDome(p, Material.GLASS, 100L)){
+			p.getWorld().playSound(p.getLocation(), Sound.GLASS, 0.25f, 0.25f);
+			Main.cool.add(new Cooldown(35, p, "Dome"));
+		}else{
+			p.sendMessage(ChatColor.DARK_RED + "You cannot build a dome there.");
+		}
+
+	}
+	
 	public static void Sugar(Player p) {
 		if (Locations.inSafe(p.getLocation())) {
 			p.sendMessage(Messages.SAFEZONE_IN);
@@ -997,6 +1018,7 @@ public class onInteract implements Listener {
 		double maxVelocity = 1.5;
 		for (Entity ent : p.getNearbyEntities(x, x, x))
 			if (ent instanceof LivingEntity) {
+				if (Locations.inSafe(ent)) continue;
 				if (ent instanceof Player) {
 					Death.update((Player) ent, p, "was forced");
 					if (((Player) ent).getHealth() <= 2.0) {
@@ -1019,6 +1041,7 @@ public class onInteract implements Listener {
 				}
 			}
 	}
+	
 	public static void ThorsAxe(final Player p, PlayerInteractEvent event) {
 		if(event.getClickedBlock() == null) return;
 		if(Locations.inSafe(p.getLocation()) || Locations.inSafe(event.getClickedBlock().getLocation())){

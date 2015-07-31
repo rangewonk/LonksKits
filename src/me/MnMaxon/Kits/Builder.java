@@ -22,7 +22,7 @@ public class Builder extends Kit {
 		sword.addEnchantment(Enchantment.DAMAGE_ALL, 1);
 		cont[0] = sword;
 		cont[1] = easyItem(ChatColor.BLUE + "Wall", Material.BRICK, 0, null, 1);
-		cont[2] = easyItem(ChatColor.BLUE + "Dome", Material.GLASS, 0, null, 1);
+		cont[2] = easyItem(ChatColor.BLUE + "Dome", Material.GLASS_BOTTLE, 0, null, 1);
 		cont = giveSoup(cont);
 		return cont;
 	}
