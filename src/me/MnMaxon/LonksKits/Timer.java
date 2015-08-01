@@ -42,7 +42,7 @@ public class Timer {
 					   }
 					  }, 1L);
 					}
-				if (minuteTimer > 1200) {
+				if (minuteTimer >= 60) {
 					minuteTimer = 0;
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
 						@Override
