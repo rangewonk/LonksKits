@@ -32,7 +32,8 @@ public class Timer {
 				minuteTimer++;
 
 				
-				if (minuteTimer % 60 == 0) {
+				if (minuteTimer >= 60) {
+						minuteTimer = 0;
 					 Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(
 					  Main.plugin, new Runnable () { 
 					   @Override 
@@ -42,8 +43,7 @@ public class Timer {
 					   }
 					  }, 1L);
 					}
-				if (minuteTimer >= 60) {
-					minuteTimer = 0;
+				
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
 						@Override
 						public void run() {
@@ -51,7 +51,6 @@ public class Timer {
 							Points.updateSigns(Points.highScore());
 						}
 					}, 1L);
-				}
 			}
 		}, 0, 20L);
 	}

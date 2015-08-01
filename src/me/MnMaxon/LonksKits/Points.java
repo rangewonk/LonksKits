@@ -53,8 +53,7 @@ public class Points {
 		Main.playerData.set("Players." + playerName + ".Points", money);
 		Main.playerData.save();
 		
-		//Maybe only resort every few minutes?
-		resortPositions();
+		resortPositions(true);
 	}
 
 	public static void help(CommandSender s) {
@@ -76,7 +75,7 @@ public class Points {
 				+ " Shows you the highscore board");
 	}
 
-	public static void resortPositions()
+	public static void resortPositions(boolean single)
 	{
 		if(positions == null || positions.size() != scoreCache.size()){
 			positions = new ArrayList<String>();
@@ -84,6 +83,7 @@ public class Points {
 			for(Entry<String, Integer> entry : scoreCache.entrySet()){
 				positions.add(entry.getKey());
 			}
+			single = false;
 		}
 		
 		//Bubble algorithm
@@ -101,6 +101,7 @@ public class Points {
 					temp = positions.get(i);
 					positions.set(i, positions.get(i+1)); 
 					positions.set(i+1, temp);
+					if(single) return;
 					edits++;
 				}
 			}
@@ -119,7 +120,7 @@ public class Points {
 			scoreCache.put(player, cfgData.getInt(player+".Points"));
 		}
 		
-		resortPositions();
+		resortPositions(false);
 	}
 	
 	
