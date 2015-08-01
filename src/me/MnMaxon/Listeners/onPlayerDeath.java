@@ -37,6 +37,7 @@ import org.bukkit.entity.TNTPrimed;
 import org.bukkit.entity.Wolf;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
@@ -46,7 +47,7 @@ import org.bukkit.potion.PotionEffectType;
 public class onPlayerDeath implements Listener {
 
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onDeath(PlayerDeathEvent e) {
 		if (e.getEntity().getWorld().equals(Locations.gameWorld))
 			e.setDeathMessage(null);

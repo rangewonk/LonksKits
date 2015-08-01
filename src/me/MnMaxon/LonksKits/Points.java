@@ -46,11 +46,10 @@ public class Points {
 	public static void set(String playerName, Integer money) {
 		if(scoreCache == null || positions == null) loadCache();
 		
-		if(scoreCache.get(playerName) == null){
-			scoreCache.put(playerName, money);
+		if(scoreCache.get(playerName) == null && money > 0){
 			positions.add(playerName);
 		}
-		
+		if(money > 0) scoreCache.put(playerName, money);
 		Main.playerData.set("Players." + playerName + ".Points", money);
 		Main.playerData.save();
 		
