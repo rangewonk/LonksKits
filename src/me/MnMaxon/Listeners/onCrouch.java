@@ -12,13 +12,10 @@ import me.MnMaxon.LonksKits.MetaLists;
 import me.MnMaxon.LonksKits.Cooldown;
 import me.MnMaxon.LonksKits.Main;
 import org.bukkit.inventory.ItemStack;
-import net.minecraft.server.v1_7_R4.PacketPlayOutEntityEquipment;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -15,8 +15,6 @@ import me.MnMaxon.Kits.Casper;
 import net.minecraft.server.v1_7_R4.EntityPlayer;
 import net.minecraft.server.v1_7_R4.NBTTagCompound;
 import net.minecraft.server.v1_7_R4.NBTTagList;
-import net.minecraft.server.v1_7_R4.PacketPlayOutEntityEquipment;
-import net.minecraft.server.v1_7_R4.PacketPlayOutPlayerInfo;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -27,17 +25,12 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.Packets;
 import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.ConnectionSide;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.wrappers.EnumWrappers.EntityUseAction;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 
 public class PLib {
@@ -229,9 +222,9 @@ public class PLib {
 							} catch (Exception ex) {
 								ex.printStackTrace();
 							}*/
-							@SuppressWarnings("deprecation")
+
 							//PacketContainer useEntity = Main.protocolManager.createPacket(PacketType.Play.Client.USE_ENTITY, false);
-							PacketContainer useEntity = Main.protocolManager.createPacket(Packets.Client.USE_ENTITY, false);
+							PacketContainer useEntity = Main.protocolManager.createPacket(PacketType.Play.Client.USE_ENTITY, false);
 
 							useEntity.getIntegers().write(0, hit.getEntityId());							
 						//	useEntity.getIntegers().

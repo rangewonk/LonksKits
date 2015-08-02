@@ -8,16 +8,29 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class PointExecuter implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender s, Command command, String label, String[] args) {
-		if (args.length == 0)
-
-			s.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] " + ChatColor.GREEN
-					+ "You have " + ChatColor.YELLOW + Points.get(s.getName()) + ChatColor.RESET + ChatColor.GREEN
+		if (args.length == 0){
+			if(!(s instanceof Player)) return true;
+			int points = Points.get(s.getName());
+			Player p = (Player)s;
+			if(points > 0){
+				int rank = Points.positions.indexOf(p.getName())+1;
+				s.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] " + ChatColor.GREEN 
+					+ "You are " + ChatColor.YELLOW + rank + ((rank%10 == 1) ? "st" : (rank%10 == 2) ? "nd" : (rank%10 == 3) ? "rd" : "th") 
+					+ ChatColor.RESET + ChatColor.GREEN
+					+ " with " + ChatColor.YELLOW + points + ChatColor.RESET + ChatColor.GREEN
 					+ " points");
+			}
+			else
+				s.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] " + ChatColor.GREEN
+						+ "You have " + ChatColor.YELLOW + "0" + ChatColor.RESET + ChatColor.GREEN
+						+ " points");
+		}
 		else if (args.length == 1
 				&& (args[0].equalsIgnoreCase("Highscore") || args[0].equalsIgnoreCase("Highscores") || args[0]
 						.equalsIgnoreCase("top")))
@@ -26,15 +39,40 @@ public class PointExecuter implements CommandExecutor {
 
 		else if (args.length == 2 && args[0].equalsIgnoreCase("show"))
 
-			if (Bukkit.getOfflinePlayer(args[1]) != null)
+			if (Bukkit.getOfflinePlayer(args[1]) != null){
+				int points = Points.get(args[1]);
+				if(points > 0){
+					int rank = Points.positions.indexOf(Bukkit.getOfflinePlayer(args[1]).getName())+1;
 				s.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] "
-						+ ChatColor.GREEN + Bukkit.getOfflinePlayer(args[1]).getName() + ChatColor.GREEN + " has "
-						+ ChatColor.YELLOW + Points.get(Bukkit.getOfflinePlayer(args[1]).getName()) + ChatColor.GREEN
+						+ ChatColor.GREEN + Bukkit.getOfflinePlayer(args[1]).getName() + ChatColor.GREEN 
+						+ " is " + ChatColor.YELLOW + rank + ((rank%10 == 1) ? "st" : (rank%10 == 2) ? "nd" : (rank%10 == 3) ? "rd" : "th")
+						+ ChatColor.RESET + ChatColor.GREEN
+						+ " with " + ChatColor.YELLOW + points + ChatColor.GREEN
 						+ " points");
-			else
-				s.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] "
-						+ ChatColor.DARK_RED + args[1] + ChatColor.GREEN + " has " + ChatColor.YELLOW
-						+ Points.get(args[1]) + ChatColor.GREEN + " points");
+				}
+				else
+					s.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] "
+							+ ChatColor.GREEN + Bukkit.getOfflinePlayer(args[1]).getName() + ChatColor.GREEN 
+							+ " has " + ChatColor.YELLOW + "0" + ChatColor.GREEN
+							+ " points");
+					
+			}
+			else{
+				int points = Points.get(args[1]);
+				if(points > 0){
+					int rank = Points.positions.indexOf(args[1])+1;
+					s.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] "
+							+ ChatColor.GREEN + args[1] + ChatColor.GREEN 
+							+ " is " + ChatColor.YELLOW + rank + ((rank%10 == 1) ? "st" : (rank%10 == 2) ? "nd" : (rank%10 == 3) ? "rd" : "th")
+							+ ChatColor.RESET + ChatColor.GREEN
+							+ " with " + ChatColor.YELLOW + points + ChatColor.GREEN
+							+ " points");
+				}else{
+					s.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] "
+							+ ChatColor.DARK_RED + args[1] + ChatColor.GREEN + " has " + ChatColor.YELLOW
+							+ "0" + ChatColor.GREEN + " points");
+				}
+			}
 
 		else if (args.length != 3)
 

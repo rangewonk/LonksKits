@@ -3,44 +3,76 @@ package me.MnMaxon.LonksKits;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.concurrent.Callable;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.block.Sign;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 public class Points {
 	public static ArrayList<String> lastScores = null;
-
+	
+	//Scores every player's score. Indexed by name
+	public static HashMap<String, Integer> scoreCache = null;
+	//Stores player names in the order of their position in the highscores
+	public static ArrayList<String> positions = null;
+	
 	public static void add(String playerName, Integer money) {
-		money = money + get(playerName);
-		Main.playerData.set("Players." + playerName + ".Points", money);
-		Main.playerData.save();
+		set(playerName, get(playerName) + money);
 	}
 
 	public static Boolean remove(String playerName, Integer money) {
 		money = get(playerName) - money;
 		if (money < 0)			return false;
-		Main.playerData.set("Players." + playerName + ".Points", money);
-		Main.playerData.save();
+		set(playerName, money);
 		return true;
 	}
 
 	public static Integer get(String playerName) {
-		if (Main.playerData.get("Players." + playerName + ".Points") == null)
+		if(scoreCache == null || positions == null) loadCache();
+		
+		//If for some reason the player's score was not loaded.
+		if(scoreCache.get(playerName) == null 
+				&& Main.playerData.getConfigurationSection("Players").isSet(playerName+".Points"))
+			if(Main.playerData.getInt("Players."+playerName+".Points") > 0){
+				addPlayerToSet(playerName, Main.playerData.getInt("Players."+playerName+".Points"));
+				resortPositions();
+			}
+		if (scoreCache.get(playerName) == null){
 			return 0;
+		}
 		else
-			return Main.playerData.getInt("Players." + playerName + ".Points");
+			return scoreCache.get(playerName);
 	}
 
 	public static void set(String playerName, Integer money) {
+		if(scoreCache == null || positions == null) loadCache();
+		
+		if(scoreCache.get(playerName) == null) addPlayerToSet(playerName, money);
+		else if(money == 0) removePlayerFromSet(playerName);
+		else scoreCache.put(playerName, money);
+		resortPositions();
+		
 		Main.playerData.set("Players." + playerName + ".Points", money);
 		Main.playerData.save();
+	}
+	
+	public static void removePlayerFromSet(String playerName)
+	{
+		if(scoreCache.get(playerName) != null){
+			scoreCache.remove(playerName);
+			positions.remove(playerName);
+		}
+	}
+	
+	public static void addPlayerToSet(String playerName, Integer money)
+	{
+		scoreCache.put(playerName, money);
+		positions.add(playerName);
 	}
 
 	public static void help(CommandSender s) {
@@ -62,8 +94,68 @@ public class Points {
 				+ " Shows you the highscore board");
 	}
 
+	public static void resortPositions()
+	{
+		if(positions == null || positions.size() != scoreCache.size()){
+			positions = new ArrayList<String>();
+			
+			for(Entry<String, Integer> entry : scoreCache.entrySet()){
+				positions.add(entry.getKey());
+			}
+		}
+		
+		//Bubble algorithm
+		int end = 0;
+		int edits;
+		String temp;
+		do{
+			edits = 0;
+			temp = "";
+			for(int i = positions.size()-1; i > end; i--)
+			{	
+				if(scoreCache.get(positions.get(i)) > scoreCache.get(positions.get(i-1)))
+				{
+					temp = positions.get(i);
+					positions.set(i, positions.get(i-1)); 
+					positions.set(i-1, temp);
+					edits++;
+				}
+			}
+			end++;
+		}while(edits > 0);
+	}
+	public static void loadCache()
+	{
+		scoreCache = new HashMap<String, Integer>();
+		
+		ConfigurationSection cfgData = Main.playerData.getConfigurationSection("Players");
+		
+		//Load all player's scores
+		for(String player : cfgData.getKeys(false))
+		{
+			if(cfgData.isSet(player+".Points"))
+				if(cfgData.getInt(player+".Points") > 0) 
+					scoreCache.put(player, cfgData.getInt(player+".Points"));
+		}
+		
+		resortPositions();
+	}
+	
+	
 	public static ArrayList<String> highScore() {
+		
+		if(scoreCache == null || positions == null) loadCache();
+		
 		ArrayList<String> players = new ArrayList<String>();
+		
+		for(int i = 0; i < 10; i++){
+			if(positions.size() <= i) break;
+			players.add(positions.get(i));
+		}
+		
+		return players;
+		
+		/*ArrayList<String> players = new ArrayList<String>();
 		HashMap<String, Integer> places = new HashMap<String, Integer>();
 		if (Main.playerData.getConfigurationSection("Players") == null)
 			return null;
@@ -79,7 +171,7 @@ public class Points {
 			for (Entry<String, Integer> entry : places.entrySet())
 				if (entry.getValue() == i && players.size() < 10)
 					players.add(entry.getKey());
-		return players;
+		return players;*/
 	}
 
 	public static void sendHighscore(final CommandSender s) {
@@ -88,8 +180,8 @@ public class Points {
 		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, new Runnable() {
 			@Override
 			public void run() {
-				if (s instanceof Player && ((Player) s).isOnline())
-					return;
+				//if (s instanceof Player && ((Player) s).isOnline())
+					//return;
 				s.sendMessage(ChatColor.AQUA + "========= Highscores =========");
 				int x = 0;
 				ArrayList<String> hsList = Points.highScore();
@@ -106,6 +198,7 @@ public class Points {
 	public static void updateSigns(final ArrayList<String> scores) {
 
 		Main.plugin.getServer().getScheduler().callSyncMethod(Main.plugin, new Callable<Boolean>() {
+			@Override
 			public Boolean call() {
 				if (lastScores != null)
 					if (lastScores == scores)
