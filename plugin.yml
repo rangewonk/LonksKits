@@ -1,4 +1,222 @@
-name: SpawnerLimit
+name: Lonks_Kits
 version: 1.0
-main: me.TerrorLT.SpawnerLimit.Main
-author: 
+main: me.MnMaxon.LonksKits.Main
+author: MnMaxon
+depend: [ProtocolLib]
+softdepend: [Essentials, DisguiseCraft, VanishNoPacket, HealthBar]
+commands:
+  KitPvP:
+    description: Teleports you to KitPvP
+    aliases: [kitspvp]
+    usage: /KitPvP
+  Spawn:
+    description: Returns player to hub
+    aliases: [hub, leave, lobby]
+    usage: /Spawn
+  Kits:
+    description: Opens kit gui
+    usage: /Kits
+  LK:
+    aliases: [lonkskits]
+    description: Allows you to set some warp locations
+    usage: /LK
+  CK:
+    aliases: [clearkit]
+    description: Clears your kit
+    usage: /ck
+  Ability:
+    aliases: [abilities]
+    description: Displays ability help
+    usage: /Ability
+  CC:
+    aliases: [clearcooldown]
+    description: Clears your cooldown
+    usage: /cc
+  SZ:
+    aliases: [safezone]
+    description: Shows safezone help
+    usage: /SZ
+  KitTP:
+    description: Allows you to teleport to players
+    usage: /KitTP [PlayerName]
+  KitTPHere:
+    description: Allows you to teleport players to you
+    usage: /KitTPHere [PlayerName]
+  Points:
+    aliases: [point]
+    description: Allows you to do stuff with points
+    usage: /Points Help
+  Highscore:
+    aliases: [highscores, hs]
+    description: Shows you the highscore board
+    usage: /Highscore
+  KitNick:
+    description: Lets you change nicknames for the kitpvp world
+    usage: /KitNick [PlayerName] [NickName / RESET]
+  Donate:
+    aliases: [donations, donation]
+    description: Gives you the donation link
+    usage: /Donate
+  Website:
+    aliases: [web, site]
+    description: Gives you the website link
+    usage: /Website
+  Build:
+    description: Allows you to build
+    usage: /Build Bypass
+  kitjail:
+    description: Kicks the player from kitpvp
+    usage: /KitJail [PLAYER_NAME] [Time][D/H/M/S] 
+  kitunjail:
+    description: Unkicks the player from kitpvp
+    permission: EXAMPLE.EXAMPLE
+    usage: /KitUnJail [PlayerName]
+  1v1:
+    description: Shows 1v1 help
+    usage: /1v1
+  PvP:
+    description: Gives you the PvP kit
+  Spartan:
+    description: Gives you the Spartan kit
+  Archer:
+    description: Gives you the Archer kit
+  Jumper:
+    description: Gives you the Jumper kit
+  Killer:
+    description: Gives you the Killer kit
+  Wizard:
+    description: Gives you the Wizard kit
+  DemoMan:
+    description: Gives you the DemoMan kit
+  Hulk:
+    description: Gives you the Hulk kit
+  Hyper:
+    description: Gives you the Hyper kit
+  Assassin:
+    description: Gives you the Assassin kit
+  Flamer:
+    description: Gives you the Flamer kit
+  Warrior:
+    description: Gives you the Warrior kit
+  BigFoot:
+    description: Gives you the BigFoot kit
+  Switcher:
+    description: Gives you the Switcher kit
+  Viking:
+    description: Gives you the Viking kit
+  Kangaroo:
+    description: Gives you the Kangaroo kit
+  Heavy:
+    description: Gives you the Heavy kit
+  Superman:
+    description: Gives you the Superman kit
+  Tiger:
+    description: Gives you the Tiger kit
+  Creeper:
+    description: Gives you the Creeper kit
+  Cowboy:
+    description: Gives you the Cowboy kit
+  Blink:
+    description: Gives you the Blink kit
+  Fisherman:
+    description: Gives you the Fisherman kit
+  Tele:
+    description: Gives you the Tele kit
+  Snake:
+    description: Gives you the Snake kit
+  Porcupine:
+    description: Gives you the Porcupine kit
+  Stimpy:
+    description: Gives you the Stimpy kit
+  Pig:
+    description: Gives you the Pig kit
+  Dragon:
+    description: Gives you the Dragon kit
+  Sonic:
+    description: Gives you the Sonic kit
+  Anvil:
+    description: Gives you the Anvil kit
+  Hawkeye:
+    description: Gives you the Hawkeye kit
+  Ghost:
+    description: Gives you the Ghost kit
+  Wolf:
+    description: Gives you the Wolf kit
+  Morter:
+    description: Gives you the Morter kit
+  Grandma:
+    description: Gives you the Grandma kit
+  BeastMaster:
+    description: Gives you the BeastMaster kit
+  Portastomp:
+    description: Gives you the Portastomp kit
+  Spy:
+    description: Gives you the Spy kit
+  Shooter:
+    description: Gives you the Shooter kit
+  Shadowblade:
+    description: Gives you the Shadowblade kit
+  Hooker:
+    description: Gives you the Hooker kit
+  Girl:
+    description: Gives you the Girl kit
+  Berserker:
+    description: Gives you the Berserker kit
+  Ripper:
+    description: Gives you the Ripper kit
+  Mooshroom:
+    description: Gives you the Mooshroom kit
+  Monk:
+    description: Gives you the Monk kit
+  Monkey:
+    description: Gives you the Monkey kit
+  Shark:
+    description: Gives you the Shark kit
+  Snowman:
+    description: Gives you the Snowman kit
+  Kamikaze:
+    description: Gives you the Kamikaze kit
+  HotHead:
+    description: Gives you the HotHead kit
+  Clone:
+    description: Gives you the Clone kit
+  Maverick:
+    description: Gives you the Maverick kit
+  Necromancer:
+    description: Gives you the Necromancer kit
+  Flinger:
+    description: Gives you the Flinger kit
+  Ninja:
+    description: Gives you the Ninja kit
+  Chomp:
+    description: Gives you the Chomp kit
+  Troll:
+    description: Gives you the Troll kit
+  Casper:
+    description: Gives you the Casper kit
+  Jedi:
+    description: Gives you the Jedi kit
+  Elder:
+    description: Gives you the Elder kit
+  Turtle:
+    description: Gives you the Turtle kit
+  Spider:
+    description: Gives you the Spider kit
+  King:
+    description: Gives you the King kit
+  Bacon:
+    description: Gives you the Bacon kit
+  Legolas:
+    description: Gives you the Legolas kit
+  John:
+    description: Gives you the John kit
+  UltimateDeath:
+    description: Gives you the UltimateDeath kit
+  Falcon:
+    description: Gives you the Falcon kit
+  Easter:
+    description: Gives you the Easter kit
+  Builder:
+    description: Gives you the Builder kit
+  Thor:
+    description: Gives you the Thor kit
