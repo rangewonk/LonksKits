@@ -758,12 +758,12 @@ public class PlayerListener implements Listener {
 		}
 	}
 
-/*	@EventHandler
+	@EventHandler
 	public void onTalk(AsyncPlayerChatEvent e) {
 		if (Locations.gameWorld != null && e.getPlayer().getWorld().equals(Locations.gameWorld)) {
 			NickName.setCustomName(e.getPlayer());
 		}
-	}*/
+	}
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onPlayerChangedWorldEvent(PlayerChangedWorldEvent e) {
