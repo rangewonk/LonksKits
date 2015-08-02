@@ -37,8 +37,16 @@ public class Points {
 	public static Integer get(String playerName) {
 		if(scoreCache == null || positions == null) loadCache();
 		
-		if (scoreCache.get(playerName) == null)
+		//If for some reason the player's score was not loaded.
+		if(scoreCache.get(playerName) == null 
+				&& Main.playerData.getConfigurationSection("Players").isSet(playerName+".Points"))
+			if(Main.playerData.getInt("Players."+playerName+".Points") > 0){
+				addPlayerToSet(playerName, Main.playerData.getInt("Players."+playerName+".Points"));
+				resortPositions();
+			}
+		if (scoreCache.get(playerName) == null){
 			return 0;
+		}
 		else
 			return scoreCache.get(playerName);
 	}
@@ -46,14 +54,27 @@ public class Points {
 	public static void set(String playerName, Integer money) {
 		if(scoreCache == null || positions == null) loadCache();
 		
-		if(scoreCache.get(playerName) == null && money > 0){
-			positions.add(playerName);
-		}
-		if(money > 0) scoreCache.put(playerName, money);
+		if(scoreCache.get(playerName) == null) addPlayerToSet(playerName, money);
+		else if(money == 0) removePlayerFromSet(playerName);
+		else scoreCache.put(playerName, money);
+		resortPositions();
+		
 		Main.playerData.set("Players." + playerName + ".Points", money);
 		Main.playerData.save();
-		
-		resortPositions(true);
+	}
+	
+	public static void removePlayerFromSet(String playerName)
+	{
+		if(scoreCache.get(playerName) != null){
+			scoreCache.remove(playerName);
+			positions.remove(playerName);
+		}
+	}
+	
+	public static void addPlayerToSet(String playerName, Integer money)
+	{
+		scoreCache.put(playerName, money);
+		positions.add(playerName);
 	}
 
 	public static void help(CommandSender s) {
@@ -75,7 +96,7 @@ public class Points {
 				+ " Shows you the highscore board");
 	}
 
-	public static void resortPositions(boolean single)
+	public static void resortPositions()
 	{
 		if(positions == null || positions.size() != scoreCache.size()){
 			positions = new ArrayList<String>();
@@ -83,7 +104,6 @@ public class Points {
 			for(Entry<String, Integer> entry : scoreCache.entrySet()){
 				positions.add(entry.getKey());
 			}
-			single = false;
 		}
 		
 		//Bubble algorithm
@@ -91,21 +111,19 @@ public class Points {
 		int edits;
 		String temp;
 		do{
-			end++;
 			edits = 0;
-			
-			for(int i = 0; i < positions.size()-end; i++)
+			temp = "";
+			for(int i = positions.size()-1; i > end; i--)
 			{	
-				if(scoreCache.get(positions.get(i)) < scoreCache.get(positions.get(i+1)))
+				if(scoreCache.get(positions.get(i)) > scoreCache.get(positions.get(i-1)))
 				{
 					temp = positions.get(i);
-					positions.set(i, positions.get(i+1)); 
-					positions.set(i+1, temp);
-					if(single) return;
+					positions.set(i, positions.get(i-1)); 
+					positions.set(i-1, temp);
 					edits++;
 				}
 			}
-			
+			end++;
 		}while(edits > 0);
 	}
 	public static void loadCache()
@@ -117,17 +135,27 @@ public class Points {
 		//Load all player's scores
 		for(String player : cfgData.getKeys(false))
 		{
-			scoreCache.put(player, cfgData.getInt(player+".Points"));
+			if(cfgData.isSet(player+".Points"))
+				if(cfgData.getInt(player+".Points") > 0) 
+					scoreCache.put(player, cfgData.getInt(player+".Points"));
 		}
 		
-		resortPositions(false);
+		resortPositions();
 	}
 	
 	
 	public static ArrayList<String> highScore() {
 		
 		if(scoreCache == null || positions == null) loadCache();
-		return (ArrayList<String>) positions.subList(0, 9);
+		
+		ArrayList<String> players = new ArrayList<String>();
+		
+		for(int i = 0; i < 10; i++){
+			if(positions.size() <= i) break;
+			players.add(positions.get(i));
+		}
+		
+		return players;
 		
 		/*ArrayList<String> players = new ArrayList<String>();
 		HashMap<String, Integer> places = new HashMap<String, Integer>();
@@ -154,8 +182,8 @@ public class Points {
 		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, new Runnable() {
 			@Override
 			public void run() {
-				if (s instanceof Player && ((Player) s).isOnline())
-					return;
+				//if (s instanceof Player && ((Player) s).isOnline())
+					//return;
 				s.sendMessage(ChatColor.AQUA + "========= Highscores =========");
 				int x = 0;
 				ArrayList<String> hsList = Points.highScore();
@@ -172,6 +200,7 @@ public class Points {
 	public static void updateSigns(final ArrayList<String> scores) {
 
 		Main.plugin.getServer().getScheduler().callSyncMethod(Main.plugin, new Callable<Boolean>() {
+			@Override
 			public Boolean call() {
 				if (lastScores != null)
 					if (lastScores == scores)

@@ -55,7 +55,8 @@ public class InventoryListener implements Listener {
 			if (e.getInventory().getTitle().equals(Messages.GUI_SHOP)) {
 				e.setCancelled(true);
 				if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta()
-						&& e.getCurrentItem().getItemMeta().hasDisplayName()) {
+						&& e.getCurrentItem().getItemMeta().hasDisplayName()
+						&& e.getCurrentItem().getItemMeta().hasLore()) {
 					if (e.getCurrentItem().getItemMeta().getLore()
 							.get(e.getCurrentItem().getItemMeta().getLore().size() - 1).equals(Messages.GUI_LORE_OWN)) {
 						p.sendMessage(ChatColor.RED + Messages.GUI_LORE_OWN);
@@ -156,6 +157,7 @@ public class InventoryListener implements Listener {
 									.equals(ChatColor.BLUE + ChatColor.stripColor(is.getItemMeta().getDisplayName())))
 						Kit.setClass(p, ChatColor.stripColor(is.getItemMeta().getDisplayName()));
 					else {
+						if(Kit.matchKit(is.getItemMeta().getDisplayName()) != null)
 						if (e.getClick().isRightClick()) {
 							Kit.matchKit(is.getItemMeta().getDisplayName()).buy(p);
 							p.closeInventory();

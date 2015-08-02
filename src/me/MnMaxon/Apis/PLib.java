@@ -229,9 +229,9 @@ public class PLib {
 							} catch (Exception ex) {
 								ex.printStackTrace();
 							}*/
-							@SuppressWarnings("deprecation")
+
 							//PacketContainer useEntity = Main.protocolManager.createPacket(PacketType.Play.Client.USE_ENTITY, false);
-							PacketContainer useEntity = Main.protocolManager.createPacket(Packets.Client.USE_ENTITY, false);
+							PacketContainer useEntity = Main.protocolManager.createPacket(PacketType.Play.Client.USE_ENTITY, false);
 
 							useEntity.getIntegers().write(0, hit.getEntityId());							
 						//	useEntity.getIntegers().
