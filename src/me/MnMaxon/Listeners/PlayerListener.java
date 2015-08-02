@@ -31,7 +31,6 @@ import me.MnMaxon.LonksKits.Main;
 import me.MnMaxon.LonksKits.Messages;
 import me.MnMaxon.LonksKits.MetaLists;
 import me.MnMaxon.LonksKits.NickName;
-import me.MnMaxon.LonksKits.Points;
 import me.MnMaxon.LonksKits.Spectator;
 import me.MnMaxon.LonksKits.TpCountdown;
 import org.bukkit.Bukkit;
