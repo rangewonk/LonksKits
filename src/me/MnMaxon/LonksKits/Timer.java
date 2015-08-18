@@ -31,9 +31,16 @@ public class Timer {
 				minionTimer();
 				minuteTimer++;
 
-				
+				if(minuteTimer % 5 == 0)
+					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
+						@Override
+						public void run() {
+						//	Shop.timer();
+							Points.updateSigns(Points.highScore());
+						}
+					}, 1L);
 				if (minuteTimer >= 60) {
-						minuteTimer = 0;
+					minuteTimer = 0;
 					 Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(
 					  Main.plugin, new Runnable () { 
 					   @Override 
@@ -43,14 +50,6 @@ public class Timer {
 					   }
 					  }, 1L);
 					}
-				
-					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
-						@Override
-						public void run() {
-						//	Shop.timer();
-							Points.updateSigns(Points.highScore());
-						}
-					}, 1L);
 			}
 		}, 0, 20L);
 	}

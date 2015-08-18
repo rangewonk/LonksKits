@@ -21,6 +21,8 @@ public class Points {
 	//Stores player names in the order of their position in the highscores
 	public static ArrayList<String> positions = null;
 	
+	
+	
 	public static void add(String playerName, Integer money) {
 		set(playerName, get(playerName) + money);
 	}
@@ -103,26 +105,47 @@ public class Points {
 				positions.add(entry.getKey());
 			}
 		}
-		
-		//Bubble algorithm
-		int end = 0;
-		int edits;
+		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, new Runnable() {
+			@Override
+			public void run() {
+		//Cocktail sort algorithm
+		int top = positions.size()-1;
+		int bottom = 0;
+		boolean swapped = true;
 		String temp;
+		
 		do{
-			edits = 0;
-			temp = "";
-			for(int i = positions.size()-1; i > end; i--)
-			{	
-				if(scoreCache.get(positions.get(i)) > scoreCache.get(positions.get(i-1)))
+			swapped = false;
+			for(int i = bottom; i < top; i++)
+			{
+				if(scoreCache.get(positions.get(i)) > scoreCache.get(positions.get(i + 1)))
 				{
 					temp = positions.get(i);
-					positions.set(i, positions.get(i-1)); 
-					positions.set(i-1, temp);
-					edits++;
+					positions.set(i, positions.get(i + 1)); 
+					positions.set(i + 1, temp);
+					swapped = true;
 				}
 			}
-			end++;
-		}while(edits > 0);
+			top--;
+			
+			if(swapped)
+			{
+				swapped = false;
+				for(int i = top; i > bottom; i--)
+				{
+					if(scoreCache.get(positions.get(i)) > scoreCache.get(positions.get(i - 1)))
+					{
+						temp = positions.get(i);
+						positions.set(i, positions.get(i - 1)); 
+						positions.set(i - 1, temp);
+						swapped = true;
+					}
+				}
+				bottom++;
+			}
+		}while(swapped);
+			}
+		});
 	}
 	public static void loadCache()
 	{
@@ -154,24 +177,6 @@ public class Points {
 		}
 		
 		return players;
-		
-		/*ArrayList<String> players = new ArrayList<String>();
-		HashMap<String, Integer> places = new HashMap<String, Integer>();
-		if (Main.playerData.getConfigurationSection("Players") == null)
-			return null;
-		Set<String> cfgData = Main.playerData.getConfigurationSection("Players").getKeys(false);
-		for (String key : cfgData) {
-			int place = 1;
-			for (String name : cfgData)
-				if (Points.get(key) <= Points.get(name))
-					place++;
-			places.put(key, place);
-		}
-		for (int i = 0; i <= 20; i++)
-			for (Entry<String, Integer> entry : places.entrySet())
-				if (entry.getValue() == i && players.size() < 10)
-					players.add(entry.getKey());
-		return players;*/
 	}
 
 	public static void sendHighscore(final CommandSender s) {
@@ -210,15 +215,10 @@ public class Points {
 					for (Location loc : entry.getValue()) {
 						if (loc.getBlock().getState() instanceof Sign) {
 							Sign sign = (Sign) loc.getBlock().getState();
+							
 							String placeModifier = "";
-							if (entry.getKey() == 1)
-								placeModifier = "st";
-							else if (entry.getKey() == 2)
-								placeModifier = "nd";
-							else if (entry.getKey() == 3)
-								placeModifier = "rd";
-							else
-								placeModifier = "th";
+							placeModifier = getPlaceSuffix(entry.getKey());
+							
 							sign.setLine(0, ChatColor.DARK_RED + "" + entry.getKey() + placeModifier);
 							if (scores.size() >= entry.getKey() && scores.get(entry.getKey() - 1) != null) {
 								String name = scores.get(entry.getKey() - 1);
@@ -271,5 +271,20 @@ public class Points {
 					Main.signData.save();
 			}
 		});
+	}
+	
+	public static String getPlaceSuffix(int place)
+	{
+		int digit = place % 10;
+		int two_digit = place % 100;
+		
+		if(digit == 1 && two_digit != 11)
+			return "st";
+		else if(digit == 2 && two_digit != 12)
+			return "nd";
+		else if(digit == 3 && two_digit != 13)
+			return "rd";
+		else 
+			return "th";
 	}
 }
