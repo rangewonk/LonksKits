@@ -1,3 +1,5 @@
 /bin
 LonksKits/.classpath
 .classpath
+*.classpath
+.classpath
