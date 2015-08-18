@@ -23,12 +23,14 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.material.MaterialData;
@@ -209,10 +211,39 @@ public class BlockListener implements Listener {
 	}
 
 	@EventHandler
+	public void onBlockDamage(BlockDamageEvent e)
+	{
+		if (Locations.gameWorld != null & e.getPlayer().getWorld().equals(Locations.gameWorld)
+				&& !MetaLists.BYPASS_BUILD.contains(e.getPlayer())) {
+			e.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
 	public void onBreak(final BlockBreakEvent e) {
 		if (Locations.gameWorld != null & e.getPlayer().getWorld().equals(Locations.gameWorld)
 				&& !MetaLists.BYPASS_BUILD.contains(e.getPlayer())) {
 			e.setCancelled(true);
+			
+			if(e.getBlock().getState() instanceof Sign){
+				Boolean save = false;
+				for (String x : Main.signData.getConfigurationSection("Signs").getKeys(false))
+					if (Main.signData.get("Signs." + x) != null
+							&& Bukkit.getWorld(Main.signData.getString("Signs." + x + ".world")) != null) {
+						Location sign = new Location(Bukkit.getWorld(Main.signData.getString("Signs." + x + ".world")),
+								Main.signData.getInt("Signs." + x + ".x"), Main.signData.getInt("Signs." + x + ".y"),
+								Main.signData.getInt("Signs." + x + ".z"));
+						if(sign == e.getBlock().getLocation()){
+							if(Main.signs.containsValue(e.getBlock().getLocation()))
+								Main.signs.remove(Main.signData.getInt("Signs." + x + ".place"));
+							save = true;
+							Main.signData.set("Signs." + x, null);
+						}
+					}
+				if (save)
+					Main.signData.save();
+			}
+			
 			if (e.getPlayer().getLocation().add(0, .1, 0).getBlock().getRelative(0, -1, 0).getY() == e.getBlock()
 					.getY() && e.getBlock().getType().isSolid()) {
 				MetaLists.TP_AROUND.add(e.getPlayer());
