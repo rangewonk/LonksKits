@@ -133,7 +133,7 @@ public class Points {
 				swapped = false;
 				for(int i = top; i > bottom; i--)
 				{
-					if(scoreCache.get(positions.get(i)) > scoreCache.get(positions.get(i - 1)))
+					if(scoreCache.get(positions.get(i)) < scoreCache.get(positions.get(i - 1)))
 					{
 						temp = positions.get(i);
 						positions.set(i, positions.get(i - 1)); 
