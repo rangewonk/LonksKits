@@ -221,7 +221,7 @@ public class Points {
 						String placeModifier = "";
 						placeModifier = getPlaceSuffix(entry.getValue());
 						
-						sign.setLine(0, ChatColor.DARK_RED + "" + entry.getKey() + placeModifier);
+						sign.setLine(0, ChatColor.DARK_RED + "" + entry.getValue() + placeModifier);
 						
 						if (positions.size() >= entry.getValue() && positions.get(entry.getValue() - 1) != null) {
 							String name = positions.get(entry.getValue() - 1);

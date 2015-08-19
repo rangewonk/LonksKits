@@ -13,6 +13,7 @@ import me.MnMaxon.LonksKits.Cooldown;
 import me.MnMaxon.LonksKits.Death;
 import me.MnMaxon.LonksKits.Locations;
 import me.MnMaxon.LonksKits.Main;
+import me.MnMaxon.LonksKits.Points;
 import me.MnMaxon.LonksKits.Spectator;
 
 import org.bukkit.Bukkit;
@@ -195,6 +196,13 @@ public class BlockListener implements Listener {
 			Main.signData.save();
 			
 			Main.signs.put(e.getBlock().getLocation(), place);
+			
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
+				@Override
+				public void run() {
+					Points.updateSigns();
+				}
+			}, 1L);
 			
 			//TODO: Delete once new code is tested.
 			/*for (int x = 0; x < 100; x++)
