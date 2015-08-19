@@ -91,7 +91,9 @@ public final class Main extends JavaPlugin {
 	public static GhostManager ghostManager;
 	public static NPCFactory npcFactory;
 	public static HashMap<String, CommandExecutor> commands = new HashMap<String, CommandExecutor>();
-	public static HashMap<Integer, ArrayList<Location>> signs = new HashMap<Integer, ArrayList<Location>>();
+	public static HashMap<Location, Integer> signs = new HashMap<Location, Integer>();
+	
+	//public static HashMap<Integer, ArrayList<Location>> signs = new HashMap<Integer, ArrayList<Location>>();
 
 	@Override
 	public void onEnable() {
@@ -461,5 +463,17 @@ public final class Main extends JavaPlugin {
 					winner.showPlayer(player);
 			}
 		}
+	}
+	
+	public static String getLocationId(Location loc)
+	{
+		String s = loc.getWorld().getName();
+		int x = loc.getBlockX();
+		s += x;
+		x = loc.getBlockY();
+		s += x;
+		x = loc.getBlockZ();
+		s += x;
+		return s;
 	}
 }

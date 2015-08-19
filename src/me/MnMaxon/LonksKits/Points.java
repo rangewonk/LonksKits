@@ -200,19 +200,50 @@ public class Points {
 		});
 	}
 
-	public static void updateSigns(final ArrayList<String> scores) {
-
+	public static void updateSigns() {
+			//final ArrayList<String> scores
 		Main.plugin.getServer().getScheduler().callSyncMethod(Main.plugin, new Callable<Boolean>() {
 			@Override
 			public Boolean call() {
-				if (lastScores != null)
+				/*if (lastScores != null)
 					if (lastScores == scores)
 						return true;
-				lastScores = scores;
-				if (scores == null)
-					return true;
-				for (Entry<Integer, ArrayList<Location>> entry : Main.signs.entrySet())
-					for (Location loc : entry.getValue()) {
+				lastScores = scores;*/
+				/*if (scores == null)
+					return true;*/
+				if(positions == null) return true;
+				
+				for (Entry<Location, Integer> entry : Main.signs.entrySet()){
+					
+					if(entry.getKey().getBlock().getState() instanceof Sign)
+					{
+						Sign sign = (Sign) entry.getKey().getBlock().getState();
+						String placeModifier = "";
+						placeModifier = getPlaceSuffix(entry.getValue());
+						
+						sign.setLine(0, ChatColor.DARK_RED + "" + entry.getKey() + placeModifier);
+						
+						if (positions.size() >= entry.getValue() && positions.get(entry.getValue() - 1) != null) {
+							String name = positions.get(entry.getValue() - 1);
+							if (name.length() > 15)
+								name = name.substring(0, 14);
+							if (name.length() < 14)
+								name = ChatColor.DARK_BLUE + name;
+							sign.setLine(1, name);
+							sign.setLine(2, ChatColor.GREEN + "Points:");
+							sign.setLine(3, ChatColor.YELLOW + "" + get(positions.get(entry.getValue() - 1)));
+						} else {
+							sign.setLine(1, "none");
+							sign.setLine(2, "");
+							sign.setLine(3, "");
+						}
+						
+						sign.update();
+					}
+					
+				}
+				//TODO: Delete when code is tested
+					/*for (Location loc : entry.getValue()) {
 						if (loc.getBlock().getState() instanceof Sign) {
 							Sign sign = (Sign) loc.getBlock().getState();
 							
@@ -236,7 +267,7 @@ public class Points {
 							}
 							sign.update();
 						}
-					}
+					}*/
 				return true;
 			}
 		});
@@ -246,10 +277,33 @@ public class Points {
 		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, new Runnable() {
 			@Override
 			public void run() {
-				Main.signs = new HashMap<Integer, ArrayList<Location>>();
-				Boolean save = false;
-				for (String x : Main.signData.getConfigurationSection("Signs").getKeys(false))
-					if (Main.signData.get("Signs." + x) != null
+				Main.signs = new HashMap<Location, Integer>();
+				for (String id : Main.signData.getConfigurationSection("Signs").getKeys(false))
+				{
+					if(id.length() < 4)
+					{
+						Main.signData.set("Signs." + id, null);
+						Main.signData.save();
+						continue;
+					}
+					
+					if (Main.signData.get("Signs." + id) != null
+							&& Bukkit.getWorld(Main.signData.getString("Signs." + id + ".world")) != null){
+						Location loc = new Location(Bukkit.getWorld(Main.signData.getString("Signs." + id + ".world")),
+								Main.signData.getInt("Signs." + id + ".x"), Main.signData.getInt("Signs." + id + ".y"),
+								Main.signData.getInt("Signs." + id + ".z"));
+						if(loc.getBlock().getState() instanceof Sign)
+						{
+							Main.signs.put(loc, Main.signData.getInt("Signs." + id + ".place"));
+						}else{
+							Main.signData.set("Signs." + id, null);
+							Main.signData.save();
+						}
+						
+					}
+				}
+				//TODO: Delete when new code is tested
+					/*if (Main.signData.get("Signs." + x) != null
 							&& Bukkit.getWorld(Main.signData.getString("Signs." + x + ".world")) != null) {
 						Location loc = new Location(Bukkit.getWorld(Main.signData.getString("Signs." + x + ".world")),
 								Main.signData.getInt("Signs." + x + ".x"), Main.signData.getInt("Signs." + x + ".y"),
@@ -268,7 +322,7 @@ public class Points {
 						}
 					}
 				if (save)
-					Main.signData.save();
+					Main.signData.save();*/
 			}
 		});
 	}

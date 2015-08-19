@@ -13,7 +13,6 @@ import me.MnMaxon.LonksKits.Cooldown;
 import me.MnMaxon.LonksKits.Death;
 import me.MnMaxon.LonksKits.Locations;
 import me.MnMaxon.LonksKits.Main;
-import me.MnMaxon.LonksKits.Points;
 import me.MnMaxon.LonksKits.Spectator;
 
 import org.bukkit.Bukkit;
@@ -178,7 +177,27 @@ public class BlockListener implements Listener {
 				e.getPlayer().sendMessage(ChatColor.RED + "You do not have permission to do this");
 				return;
 			}
-			for (int x = 0; x < 100; x++)
+			
+			int place = -1;
+			try {
+				place = Integer.parseInt(e.getLine(1));
+			} catch (NumberFormatException exception) {
+				e.getBlock().breakNaturally();
+				e.getPlayer().sendMessage(ChatColor.DARK_RED + e.getLine(1) + " is not a number");
+				return;
+			}
+			String id = Main.getLocationId(e.getBlock().getLocation());
+			Main.signData.set("Signs." + id + ".world", e.getBlock().getWorld().getName());
+			Main.signData.set("Signs." + id + ".place", place);
+			Main.signData.set("Signs." + id + ".x", e.getBlock().getX());
+			Main.signData.set("Signs." + id + ".y", e.getBlock().getY());
+			Main.signData.set("Signs." + id + ".z", e.getBlock().getZ());
+			Main.signData.save();
+			
+			Main.signs.put(e.getBlock().getLocation(), place);
+			
+			//TODO: Delete once new code is tested.
+			/*for (int x = 0; x < 100; x++)
 				if (Main.signData.get("Signs." + x) == null) {
 					int place = -1;
 					try {
@@ -206,14 +225,14 @@ public class BlockListener implements Listener {
 						}
 					}, 1L);
 					return;
-				}
+				}*/
 		}
 	}
 
 	@EventHandler
 	public void onBlockDamage(BlockDamageEvent e)
 	{
-		if (Locations.gameWorld != null & e.getPlayer().getWorld().equals(Locations.gameWorld)
+		if (Locations.gameWorld != null & e.getPlayer().getWorld() == Locations.gameWorld
 				&& !MetaLists.BYPASS_BUILD.contains(e.getPlayer())) {
 			e.setCancelled(true);
 		}
@@ -221,42 +240,36 @@ public class BlockListener implements Listener {
 	
 	@EventHandler
 	public void onBreak(final BlockBreakEvent e) {
-		if (Locations.gameWorld != null & e.getPlayer().getWorld().equals(Locations.gameWorld)
-				&& !MetaLists.BYPASS_BUILD.contains(e.getPlayer())) {
-			e.setCancelled(true);
-			
-			if(e.getBlock().getState() instanceof Sign){
-				Boolean save = false;
-				for (String x : Main.signData.getConfigurationSection("Signs").getKeys(false))
-					if (Main.signData.get("Signs." + x) != null
-							&& Bukkit.getWorld(Main.signData.getString("Signs." + x + ".world")) != null) {
-						Location sign = new Location(Bukkit.getWorld(Main.signData.getString("Signs." + x + ".world")),
-								Main.signData.getInt("Signs." + x + ".x"), Main.signData.getInt("Signs." + x + ".y"),
-								Main.signData.getInt("Signs." + x + ".z"));
-						if(sign == e.getBlock().getLocation()){
-							if(Main.signs.containsValue(e.getBlock().getLocation()))
-								Main.signs.remove(Main.signData.getInt("Signs." + x + ".place"));
-							save = true;
-							Main.signData.set("Signs." + x, null);
-						}
-					}
-				if (save)
+		if (Locations.gameWorld != null
+				& e.getPlayer().getWorld().equals(Locations.gameWorld)) {
+			if (!MetaLists.BYPASS_BUILD.contains(e.getPlayer())) {
+				e.setCancelled(true);
+
+				if (e.getPlayer().getLocation().add(0, .1, 0).getBlock()
+						.getRelative(0, -1, 0).getY() == e.getBlock().getY()
+						&& e.getBlock().getType().isSolid()) {
+					MetaLists.TP_AROUND.add(e.getPlayer());
+					final Location loc = e.getPlayer().getLocation();
+					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
+								@Override
+								public void run() {
+									if (e.getPlayer().isValid()
+										&& e.getPlayer().getLocation().getY() < loc.getY()) {
+										MetaLists.TP_AROUND.add(e.getPlayer());
+										e.getPlayer().teleport(
+												loc.add(0, .2, 0));
+									}
+								}
+							}, 2L);
+				}
+			}else{
+				if(e.getBlock().getState() instanceof Sign)
+				if(Main.signs.containsKey(e.getBlock().getLocation()))
+				{
+					Main.signs.remove(e.getBlock().getLocation());
+					Main.signData.set("Signs."+ Main.getLocationId(e.getBlock().getLocation()), null);
 					Main.signData.save();
-			}
-			
-			if (e.getPlayer().getLocation().add(0, .1, 0).getBlock().getRelative(0, -1, 0).getY() == e.getBlock()
-					.getY() && e.getBlock().getType().isSolid()) {
-				MetaLists.TP_AROUND.add(e.getPlayer());
-				final Location loc = e.getPlayer().getLocation();
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
-					@Override
-					public void run() {
-						if (e.getPlayer().isValid() && e.getPlayer().getLocation().getY() < loc.getY()) {
-							MetaLists.TP_AROUND.add(e.getPlayer());
-							e.getPlayer().teleport(loc.add(0, .2, 0));
-						}
-					}
-				}, 2L);
+				}
 			}
 		}
 	}

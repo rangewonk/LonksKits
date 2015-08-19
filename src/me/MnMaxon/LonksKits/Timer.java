@@ -36,7 +36,8 @@ public class Timer {
 						@Override
 						public void run() {
 						//	Shop.timer();
-							Points.updateSigns(Points.highScore());
+							//Points.updateSigns(Points.highScore());
+							Points.updateSigns();
 						}
 					}, 1L);
 				if (minuteTimer >= 60) {
