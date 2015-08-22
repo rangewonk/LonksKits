@@ -30,7 +30,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.material.MaterialData;
@@ -234,15 +233,6 @@ public class BlockListener implements Listener {
 					}, 1L);
 					return;
 				}*/
-		}
-	}
-
-	@EventHandler
-	public void onBlockDamage(BlockDamageEvent e)
-	{
-		if (Locations.gameWorld != null & e.getPlayer().getWorld() == Locations.gameWorld
-				&& !MetaLists.BYPASS_BUILD.contains(e.getPlayer())) {
-			e.setCancelled(true);
 		}
 	}
 	

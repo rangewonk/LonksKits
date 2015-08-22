@@ -49,6 +49,15 @@ public class onEntityDamage implements Listener {
 			e.setCancelled(true);
 			return;
 		}
+		
+		/*if(e.getEntity() instanceof Player && MetaLists.PLAYERS.contains(e.getEntity()))
+		{
+			if(((Player)e.getEntity()).getInventory().getArmorContents()[0] != null)
+			{
+				
+			}		
+		}*/
+		
 		if (e.getEntity() instanceof Player && Spectator.isSpectator((Player) e.getEntity())) {
 			e.setCancelled(true);
 			e.getEntity().setFireTicks(0);

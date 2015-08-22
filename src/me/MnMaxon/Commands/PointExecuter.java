@@ -21,7 +21,7 @@ public class PointExecuter implements CommandExecutor {
 			if(points > 0){
 				int rank = Points.positions.indexOf(p.getName())+1;
 				s.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] " + ChatColor.GREEN 
-					+ "You are " + ChatColor.YELLOW + rank + ((rank%10 == 1) ? "st" : (rank%10 == 2) ? "nd" : (rank%10 == 3) ? "rd" : "th") 
+					+ "You are " + ChatColor.YELLOW + rank + Points.getPlaceSuffix(rank)
 					+ ChatColor.RESET + ChatColor.GREEN
 					+ " with " + ChatColor.YELLOW + points + ChatColor.RESET + ChatColor.GREEN
 					+ " points");
@@ -45,7 +45,7 @@ public class PointExecuter implements CommandExecutor {
 					int rank = Points.positions.indexOf(Bukkit.getOfflinePlayer(args[1]).getName())+1;
 				s.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] "
 						+ ChatColor.GREEN + Bukkit.getOfflinePlayer(args[1]).getName() + ChatColor.GREEN 
-						+ " is " + ChatColor.YELLOW + rank + ((rank%10 == 1) ? "st" : (rank%10 == 2) ? "nd" : (rank%10 == 3) ? "rd" : "th")
+						+ " is " + ChatColor.YELLOW + rank + Points.getPlaceSuffix(rank)
 						+ ChatColor.RESET + ChatColor.GREEN
 						+ " with " + ChatColor.YELLOW + points + ChatColor.GREEN
 						+ " points");
@@ -63,7 +63,7 @@ public class PointExecuter implements CommandExecutor {
 					int rank = Points.positions.indexOf(args[1])+1;
 					s.sendMessage(ChatColor.GOLD + "[" + ChatColor.AQUA + "LonksKits" + ChatColor.GOLD + "] "
 							+ ChatColor.GREEN + args[1] + ChatColor.GREEN 
-							+ " is " + ChatColor.YELLOW + rank + ((rank%10 == 1) ? "st" : (rank%10 == 2) ? "nd" : (rank%10 == 3) ? "rd" : "th")
+							+ " is " + ChatColor.YELLOW + rank + Points.getPlaceSuffix(rank)
 							+ ChatColor.RESET + ChatColor.GREEN
 							+ " with " + ChatColor.YELLOW + points + ChatColor.GREEN
 							+ " points");

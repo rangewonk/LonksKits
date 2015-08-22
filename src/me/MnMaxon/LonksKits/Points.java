@@ -105,9 +105,6 @@ public class Points {
 				positions.add(entry.getKey());
 			}
 		}
-		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, new Runnable() {
-			@Override
-			public void run() {
 		//Cocktail sort algorithm
 		int top = positions.size()-1;
 		int bottom = 0;
@@ -144,8 +141,6 @@ public class Points {
 				bottom++;
 			}
 		}while(swapped);
-			}
-		});
 	}
 	public static void loadCache()
 	{
