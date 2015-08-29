@@ -35,7 +35,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 public class onEntityDamage implements Listener {
-
+	
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onDamage(EntityDamageEvent e) {
@@ -49,16 +49,6 @@ public class onEntityDamage implements Listener {
 				&& MetaLists.IGNORE_DAMAGE_EXPLOSION.contains(e.getEntity()))) {
 			e.setCancelled(true);
 			return;
-		}
-		
-		if(e.getCause() == DamageCause.VOID && e.getEntity() instanceof Player)
-		{
-			
-			Player plr = (Player)(e.getEntity());
-			if(plr.getGameMode() != GameMode.CREATIVE){
-				plr.damage(999d);
-				return;
-			}
 		}
 		
 		/*if(e.getEntity() instanceof Player && MetaLists.PLAYERS.contains(e.getEntity()))

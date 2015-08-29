@@ -1,6 +1,7 @@
 package me.MnMaxon.Listeners;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import me.MnMaxon.Apis.CloneManager;
@@ -68,7 +69,9 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 public class PlayerListener implements Listener {
-
+	
+	public static HashMap<Player, Byte> skipKill = new HashMap<Player, Byte>();
+	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onTeleport(PlayerTeleportEvent e) {
 		if (Locations.loc1 != null && Locations.loc2 != null
@@ -201,6 +204,20 @@ public class PlayerListener implements Listener {
 		final Player p = e.getPlayer();
 		if (!e.getTo().getBlock().equals(e.getFrom().getBlock()))
 			TpCountdown.cancel(p);
+		
+		//Void kill
+		if(e.getPlayer().getLocation().getY() < 0D 
+				&& (!e.getPlayer().isDead())
+				&& (e.getPlayer().getGameMode()!= GameMode.CREATIVE ))
+		{
+			skipKill.put(e.getPlayer(), (byte)1);
+			e.getPlayer().damage(999d);
+			return;
+		}
+		
+		
+		//-------------------------
+		
 		if (!MetaLists.PLAYERS.contains(p))
 			return;
 

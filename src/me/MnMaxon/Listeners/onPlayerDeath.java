@@ -53,14 +53,20 @@ public class onPlayerDeath implements Listener {
 			e.setDeathMessage(null);
 		if (CloneManager.isClone(e.getEntity()))
 			return;
-
+		
+		if(PlayerListener.skipKill.containsKey(e.getEntity()))
+		{
+			PlayerListener.skipKill.remove(e.getEntity());
+			return;
+		}
+		
 		boolean oneVOne = false;
 		if (MetaLists.ONE_V_ONE_FIGHT.contains(e.getEntity()))
 			oneVOne = true;
 
 		if (oneVOne)
 			Main.endOneVOne(e.getEntity(), (String) MetaLists.ONE_V_ONE_FIGHT.get(e.getEntity()));
-
+		
 		if (Death.getInfo(e.getEntity()) != null)
 			Death.getInfo(e.getEntity()).timer = 0;
 		MetaLists.IGNORE_DAMAGE_FALL.remove(e.getEntity());

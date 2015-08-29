@@ -173,6 +173,12 @@ public class PLib {
 		Main.protocolManager.getAsynchronousManager()
 				.registerAsyncHandler(new PacketAdapter(Main.plugin, ConnectionSide.SERVER_SIDE, Packets.Server.ARM_ANIMATION) {
 					@Override
+					public void onPacketSending(PacketEvent e)
+					{
+						
+					}
+					
+					@Override
 					public void onPacketReceiving(PacketEvent e) {
 						if (e == null || e.getPlayer() == null || e.getPlayer().isDead())
 							return;
