@@ -70,7 +70,7 @@ import org.bukkit.util.Vector;
 
 public class PlayerListener implements Listener {
 	
-	public static HashMap<Player, Byte> skipKill = new HashMap<Player, Byte>();
+	//public static HashMap<Player, Byte> skipKill = new HashMap<Player, Byte>();
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onTeleport(PlayerTeleportEvent e) {
@@ -210,7 +210,7 @@ public class PlayerListener implements Listener {
 				&& (!e.getPlayer().isDead())
 				&& (e.getPlayer().getGameMode()!= GameMode.CREATIVE ))
 		{
-			skipKill.put(e.getPlayer(), (byte)1);
+			//skipKill.put(e.getPlayer(), (byte)1);
 			e.getPlayer().damage(999d);
 			return;
 		}

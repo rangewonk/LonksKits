@@ -54,11 +54,11 @@ public class onPlayerDeath implements Listener {
 		if (CloneManager.isClone(e.getEntity()))
 			return;
 		
-		if(PlayerListener.skipKill.containsKey(e.getEntity()))
+		/*if(PlayerListener.skipKill.containsKey(e.getEntity()))
 		{
 			PlayerListener.skipKill.remove(e.getEntity());
 			return;
-		}
+		}*/
 		
 		boolean oneVOne = false;
 		if (MetaLists.ONE_V_ONE_FIGHT.contains(e.getEntity()))
