@@ -22,6 +22,7 @@ import me.MnMaxon.LonksKits.MetaLists;
 import me.MnMaxon.LonksKits.Spectator;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
@@ -48,6 +49,16 @@ public class onEntityDamage implements Listener {
 				&& MetaLists.IGNORE_DAMAGE_EXPLOSION.contains(e.getEntity()))) {
 			e.setCancelled(true);
 			return;
+		}
+		
+		if(e.getCause() == DamageCause.VOID && e.getEntity() instanceof Player)
+		{
+			
+			Player plr = (Player)(e.getEntity());
+			if(plr.getGameMode() != GameMode.CREATIVE){
+				plr.damage(999d);
+				return;
+			}
 		}
 		
 		/*if(e.getEntity() instanceof Player && MetaLists.PLAYERS.contains(e.getEntity()))

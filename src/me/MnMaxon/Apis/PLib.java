@@ -27,7 +27,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.Packets;
 import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.ConnectionSide;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
@@ -165,10 +167,11 @@ public class PLib {
 		}
 	 } */
 
+	@SuppressWarnings("deprecation")
 	public static void setupProtatocalLib() {
 		Main.protocolManager = ProtocolLibrary.getProtocolManager();
 		Main.protocolManager.getAsynchronousManager()
-				.registerAsyncHandler(new PacketAdapter(Main.plugin,  PacketType.Play.Client.ARM_ANIMATION) {
+				.registerAsyncHandler(new PacketAdapter(Main.plugin, ConnectionSide.SERVER_SIDE, Packets.Server.ARM_ANIMATION) {
 					@Override
 					public void onPacketReceiving(PacketEvent e) {
 						if (e == null || e.getPlayer() == null || e.getPlayer().isDead())
@@ -177,7 +180,7 @@ public class PLib {
 						int animationType = e.getPacket().getIntegers().read(1);
 
 						// Only consider swing arm animation
-						if (animationType != 1) {
+						if (animationType != 0) {
 							return;
 						}
 
