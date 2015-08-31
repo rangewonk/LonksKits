@@ -77,8 +77,8 @@ public class PlayerListener implements Listener {
 		if (Locations.loc1 != null && Locations.loc2 != null
 				&& (e.getTo().equals(Locations.loc1) || e.getTo().equals(Locations.loc2)))
 			return;
-		if (CloneManager.isClone(e.getPlayer()))
-			return;
+		//if (CloneManager.isClone(e.getPlayer()))
+			//return;
 		MetaLists.TP_AROUND_PLOT.remove(e.getPlayer());
 		TpCountdown.cancel(e.getPlayer());
 		if (!e.getPlayer().getGameMode().equals(GameMode.CREATIVE) && !Spectator.isSpectator(e.getPlayer())) {
@@ -139,7 +139,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onDisconnect(PlayerQuitEvent e) {
-		CloneManager.remove(e.getPlayer());
+		//CloneManager.remove(e.getPlayer());
 		onInteract.removeMinions(e.getPlayer());
 		MetaLists.IGNORE_DAMAGE_FALL.remove(e.getPlayer());
 		for (Entity ent : e.getPlayer().getWorld().getEntities())
@@ -787,7 +787,7 @@ public class PlayerListener implements Listener {
 		MetaLists.CAN_JUMP.remove(e.getPlayer());
 		MetaLists.BYPASS_SAFEZONE.remove(e.getPlayer());
 		DisguiseCraftMethods.unDisguise(e.getPlayer());
-		CloneManager.remove(e.getPlayer());
+		//CloneManager.remove(e.getPlayer());
 		onInteract.removeMinions(e.getPlayer());
 		Spectator.remove(e.getPlayer());
 

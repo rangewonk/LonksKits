@@ -34,7 +34,7 @@ import me.MnMaxon.Commands.WebsiteExecuter;
 import me.MnMaxon.Kits.Kit;
 
 import com.comphenix.protocol.ProtocolManager;
-import com.lenis0012.bukkit.npc.NPCFactory;
+//import com.lenis0012.bukkit.npc.NPCFactory;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -89,7 +89,7 @@ public final class Main extends JavaPlugin {
 	public static SuperYaml uuidData;
 	public static SuperYaml pointShop;
 	public static GhostManager ghostManager;
-	public static NPCFactory npcFactory;
+	//public static NPCFactory npcFactory;
 	public static HashMap<String, CommandExecutor> commands = new HashMap<String, CommandExecutor>();
 	public static HashMap<Location, Integer> signs = new HashMap<Location, Integer>();
 	
@@ -105,7 +105,7 @@ public final class Main extends JavaPlugin {
 		reloadConfigs();
 		Kit.setUpList();
 		ghostManager = new GhostManager(this);
-		npcFactory = new NPCFactory(this);
+		//npcFactory = new NPCFactory(this);
 		Listener[] listeners = { new PlayerListener(), new InventoryListener(), new EntityListener(),
 				new BlockListener(), new onShoot(), new onInteract(), new onCrouch(), new onEntityDamageByEntity(),
 				new onEntityDamage(), new onPlayerDeath() };
@@ -258,7 +258,7 @@ public final class Main extends JavaPlugin {
 		if(MetaLists.PLAYERS_INVISIBLE.contains( p)) PLib.toggleVisibility(p, false);
 		MetaLists.PLAYERS.remove(p);
 		MetaLists.PLAYERS.remove(p);
-		CloneManager.remove(p);
+		//CloneManager.remove(p);
 		onInteract.removeMinions(p);
 		if (Locations.gameWorld.equals(p.getWorld())) {
 			for (Entity ent : p.getWorld().getEntities())

@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
-import net.minecraft.server.v1_7_R4.Entity;
-import net.minecraft.server.v1_7_R4.EntityInsentient;
-import net.minecraft.server.v1_7_R4.EntityTypes;
-import net.minecraft.server.v1_7_R4.World;
+import net.minecraft.server.v1_8_R3.Entity;
+import net.minecraft.server.v1_8_R3.EntityInsentient;
+import net.minecraft.server.v1_8_R3.EntityTypes;
+import net.minecraft.server.v1_8_R3.World;
 
 public class CustomEntityType {
 

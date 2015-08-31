@@ -22,13 +22,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.lenis0012.bukkit.npc.EquipmentSlot;
+/*import com.lenis0012.bukkit.npc.EquipmentSlot;
 import com.lenis0012.bukkit.npc.NPC;
 import com.lenis0012.bukkit.npc.NPCAnimation;
-import com.lenis0012.bukkit.npc.NPCProfile;
+import com.lenis0012.bukkit.npc.NPCProfile;*/
 
 public class CloneManager {
-	public static Map<NPC, Player> NPCs = new HashMap<NPC, Player>();
+	//TODO: Make NPCs work again
+	/*public static Map<NPC, Player> NPCs = new HashMap<NPC, Player>();
 	public static Map<NPC, Player> ninjaNPCs = new HashMap<NPC, Player>();
 
 	public static void add(final Player p) {
@@ -202,5 +203,5 @@ public class CloneManager {
 
 	public static boolean isClone(Entity ent) {
 		return Main.npcFactory.isNPC(ent);
-	}
+	}*/
 }

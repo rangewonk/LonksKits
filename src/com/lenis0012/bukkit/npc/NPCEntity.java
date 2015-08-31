@@ -1,35 +1,37 @@
 package com.lenis0012.bukkit.npc;
 
-import net.minecraft.server.v1_7_R4.DamageSource;
-import net.minecraft.server.v1_7_R4.Entity;
-import net.minecraft.server.v1_7_R4.EntityDamageSource;
-import net.minecraft.server.v1_7_R4.EntityDamageSourceIndirect;
-import net.minecraft.server.v1_7_R4.EntityHuman;
-import net.minecraft.server.v1_7_R4.EntityPlayer;
-import net.minecraft.server.v1_7_R4.EnumGamemode;
-import net.minecraft.server.v1_7_R4.Material;
-import net.minecraft.server.v1_7_R4.MathHelper;
-import net.minecraft.server.v1_7_R4.Packet;
-import net.minecraft.server.v1_7_R4.PacketPlayOutAnimation;
-import net.minecraft.server.v1_7_R4.PacketPlayOutBed;
-import net.minecraft.server.v1_7_R4.PacketPlayOutEntityEquipment;
-import net.minecraft.server.v1_7_R4.PlayerInteractManager;
+import net.minecraft.server.v1_8_R3.DamageSource;
+import net.minecraft.server.v1_8_R3.Entity;
+import net.minecraft.server.v1_8_R3.EntityDamageSource;
+import net.minecraft.server.v1_8_R3.EntityDamageSourceIndirect;
+import net.minecraft.server.v1_8_R3.EntityHuman;
+import net.minecraft.server.v1_8_R3.EntityPlayer;
+import net.minecraft.server.v1_8_R3.Material;
+import net.minecraft.server.v1_8_R3.MathHelper;
+import net.minecraft.server.v1_8_R3.Packet;
+import net.minecraft.server.v1_8_R3.PacketPlayOutAnimation;
+import net.minecraft.server.v1_8_R3.PacketPlayOutBed;
+import net.minecraft.server.v1_8_R3.PacketPlayOutEntityEquipment;
+import net.minecraft.server.v1_8_R3.PlayerInteractManager;
+import net.minecraft.server.v1_8_R3.WorldSettings.EnumGamemode;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R4.event.CraftEventFactory;
-import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
+
+import com.mojang.authlib.GameProfile;
 
 public class NPCEntity extends EntityPlayer implements NPC {
 	private boolean entityCollision = true;
@@ -42,7 +44,8 @@ public class NPCEntity extends EntityPlayer implements NPC {
 	private NPCPath path;
 	
 	public NPCEntity(World world, NPCProfile profile, NPCNetworkManager networkManager) {
-		super(((CraftServer) Bukkit.getServer()).getServer(), ((CraftWorld) world).getHandle(), profile.getHandle(), new PlayerInteractManager(((CraftWorld) world).getHandle()));
+		//TODO: Fix
+		//super(((CraftServer) Bukkit.getServer()).getServer(), ((CraftWorld) world).getHandle(), profile.getHandle(), new PlayerInteractManager(((CraftWorld) world).getHandle()));
 		playerInteractManager.b(EnumGamemode.SURVIVAL);
 		this.playerConnection = new NPCPlayerConnection(networkManager, this);
 		this.fauxSleeping = true;
@@ -122,8 +125,9 @@ public class NPCEntity extends EntityPlayer implements NPC {
 	@Override
 	public void setYaw(float yaw) {
 		this.yaw = yaw;
-		this.aP = yaw;
-		this.aO = yaw;
+		//TODO: Fix
+		//this.aP = yaw;
+		//this.aO = yaw;
 	}
 	
 	private final float getLocalAngle(Vector point1, Vector point2) {
@@ -140,7 +144,8 @@ public class NPCEntity extends EntityPlayer implements NPC {
         @Override
         public void setLying(double x, double y, double z){
             if(!lying){
-                broadcastLocalPacket(new PacketPlayOutBed(getBukkitEntity().getHandle(), (int)x, (int)y, (int)z));
+                //TODO: Fix
+            	//broadcastLocalPacket(new PacketPlayOutBed(getBukkitEntity().getHandle(), (int)x, (int)y, (int)z));
                 lying = true;
             }else if(((Double)x == null && (Double)y == null && (Double)z == null) && lying){
                 broadcastLocalPacket(new PacketPlayOutAnimation(this, 2));
@@ -189,9 +194,10 @@ public class NPCEntity extends EntityPlayer implements NPC {
 			}
 		}
 		
-		if(world.getType(MathHelper.floor(locX), MathHelper.floor(locY), MathHelper.floor(locZ)).getMaterial() == Material.FIRE) {
+		//TODO: Fix
+		/*if(world.getType(MathHelper.floor(locX), MathHelper.floor(locY), MathHelper.floor(locZ)).getMaterial() == Material.FIRE) {
 			setOnFire(15);
-		}
+		}*/
 		
 		//Apply velocity etc.
 		this.motY = onGround ? Math.max(0.0, motY) : motY;

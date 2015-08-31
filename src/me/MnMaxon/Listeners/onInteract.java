@@ -24,8 +24,8 @@ import me.MnMaxon.LonksKits.Shop;
 import me.MnMaxon.LonksKits.Spectator;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftCreature;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftCreature;
 import org.bukkit.entity.Fireball;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -57,7 +57,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import com.lenis0012.bukkit.npc.NPC;
+//import com.lenis0012.bukkit.npc.NPC;
 
 public class onInteract implements Listener {
 	public static Map<Player, ArrayList<Creature>> minions = new HashMap<Player, ArrayList<Creature>>();
@@ -174,8 +174,8 @@ public class onInteract implements Listener {
 						else
 							e.getItem().setAmount(e.getItem().getAmount() - 1);
 						e.setCancelled(true);
-					} else if (name.equalsIgnoreCase("cloner"))
-						CloneManager.add(p);
+					}// else if (name.equalsIgnoreCase("cloner"))
+						//CloneManager.add(p);
 					else if (name.equalsIgnoreCase("Shape Shifter"))
 						ShapeShift(p);
 					else if (name.equalsIgnoreCase("Kamikaze"))
@@ -186,8 +186,8 @@ public class onInteract implements Listener {
 						Flinger(p);
 					else if (name.equalsIgnoreCase("Shuriken"))
 						Shuriken(p);
-					else if (name.equalsIgnoreCase("Clone"))
-						NinjaClone(p);
+					//else if (name.equalsIgnoreCase("Clone"))
+						//NinjaClone(p);
 					else if (name.equalsIgnoreCase("The Force"))
 						Force(p);
 					else if (name.equalsIgnoreCase("Porkchop"))
@@ -686,7 +686,7 @@ public class onInteract implements Listener {
 					Location loc = bomb.getLocation();
 					for (Entity ent : bomb.getNearbyEntities(5, 5, 5))
 						if (Main.canDamage(ent)) {
-							if (ent instanceof Player && !ent.equals(p) && !CloneManager.isClone(p))
+							if (ent instanceof Player && !ent.equals(p))// TODO: Fix NPCs && !CloneManager.isClone(p))
 								Death.update((Player) ent, p, "explosion");
 							((LivingEntity) ent).damage(99999);
 						}
@@ -858,7 +858,7 @@ public class onInteract implements Listener {
 		if (!p.getLocation().add(p.getLocation().getDirection().setY(0).multiply(5)).getBlock().getType().isSolid())
 			loc = p.getLocation().add(p.getLocation().getDirection().setY(0).multiply(5));
 		Entity ent = p.getWorld().spawnEntity(loc, entType);
-		((CraftCreature) ent).getHandle().getNavigation().d(false);
+		//((CraftCreature) ent).getHandle().getNavigation().d(false);
 		String mobType = "";
 		if (ent.getType().equals(EntityType.ZOMBIE))
 			mobType = "Zombie";
@@ -912,7 +912,8 @@ public class onInteract implements Listener {
 		Vector velocity = (p.getLocation().getDirection().multiply(2));
 		ArrayList<Entity> ignored = new ArrayList<Entity>();
 		ignored.add(p);
-		if (CloneManager.ninjaNPCs.containsValue(p)) {
+		//TODO: Fix NPCs
+		/*if (CloneManager.ninjaNPCs.containsValue(p)) {
 			for (Entry<NPC, Player> entry : CloneManager.ninjaNPCs.entrySet())
 				if (entry.getValue().equals(p) && entry.getKey() != null && entry.getKey().getBukkitEntity().isValid()) {
 
@@ -929,7 +930,7 @@ public class onInteract implements Listener {
 					cloneShuriken.setVelocity(cloneVelocity);
 					ShurikenLoop(cloneShuriken, p, ignored);
 				}
-		}
+		}*/
 		Item shuriken = p.getLocation().getWorld().dropItem(p.getLocation().add(0, 1, 0), p.getItemInHand());
 		shuriken.setVelocity(velocity);
 		ShurikenLoop(shuriken, p, ignored);
@@ -961,7 +962,7 @@ public class onInteract implements Listener {
 		}, 1L);
 	}
 
-	public static void NinjaClone(Player p) {
+	/*public static void NinjaClone(Player p) {
 		if (Locations.inSafe(p.getLocation())) {
 			p.sendMessage(Messages.SAFEZONE_IN);
 			return;
@@ -1004,7 +1005,7 @@ public class onInteract implements Listener {
 			Main.cool.add(new Cooldown(30, p, "Clone"));
 			CloneManager.ninjaClone(p, true);
 		}
-	}
+	}*/
 
 	public static void Force(Player p) {
 		if (Locations.inSafe(p.getLocation())) {

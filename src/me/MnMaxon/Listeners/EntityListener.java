@@ -33,7 +33,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
 
-import com.lenis0012.bukkit.npc.NPCDamageEvent;
+//import com.lenis0012.bukkit.npc.NPCDamageEvent;
 
 public class EntityListener implements Listener {
 
@@ -79,7 +79,8 @@ public class EntityListener implements Listener {
 			if (!(e.getEntity() instanceof Player))
 				e.getDrops().clear();
 			e.setDroppedExp(0);
-			CloneManager.NPCs.remove(e.getEntity().getEntityId());
+			//TODO: Fix NPCs
+			//CloneManager.NPCs.remove(e.getEntity().getEntityId());
 		}
 	}
 
@@ -118,7 +119,8 @@ public class EntityListener implements Listener {
 			e.setCancelled(true);
 	}
 
-	@EventHandler
+	//TODO: Fix NPCs
+	/*@EventHandler
 	public void NPCDamage(NPCDamageEvent e) {
 		if (e.getDamager() != null && !Locations.inSafe(e.getNpc().getBukkitEntity().getLocation())
 				&& Locations.inSafe(e.getDamager().getLocation())) {
@@ -139,7 +141,7 @@ public class EntityListener implements Listener {
 			e.setCancelled(true);
 			e.getNpc().getBukkitEntity().remove();
 		}
-	}
+	}*/
 
 	@EventHandler
 	public void onTarget(EntityTargetEvent e) {

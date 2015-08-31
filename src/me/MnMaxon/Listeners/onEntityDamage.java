@@ -125,7 +125,8 @@ public class onEntityDamage implements Listener {
 				for (Entity ent : e.getEntity().getNearbyEntities(5, 5, 5))
 					if (ent instanceof Player && !Locations.inSafe(ent) && ((Player) ent).getNoDamageTicks() <= 0) {
 						Player p = (Player) ent;
-						if (!CloneManager.isClone(p))
+						//TODO: Fix NPCs
+						//if (!CloneManager.isClone(p))
 							Death.update(p, (Player) e.getEntity(), "was stomped on");
 						if (!EssentialsMethods.hasGodMode((Player) ent)) {
 							if (p.isSneaking()) {

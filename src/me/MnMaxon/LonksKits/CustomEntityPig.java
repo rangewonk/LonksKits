@@ -2,23 +2,23 @@ package me.MnMaxon.LonksKits;
 
 import java.lang.reflect.Field;
 
-import net.minecraft.server.v1_7_R4.DamageSource;
-import net.minecraft.server.v1_7_R4.Entity;
-import net.minecraft.server.v1_7_R4.EntityHuman;
-import net.minecraft.server.v1_7_R4.EntityPig;
-import net.minecraft.server.v1_7_R4.PathfinderGoalFloat;
-import net.minecraft.server.v1_7_R4.PathfinderGoalHurtByTarget;
-import net.minecraft.server.v1_7_R4.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_7_R4.PathfinderGoalMeleeAttack;
-import net.minecraft.server.v1_7_R4.PathfinderGoalMoveTowardsRestriction;
-import net.minecraft.server.v1_7_R4.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_7_R4.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_7_R4.PathfinderGoalRandomStroll;
-import net.minecraft.server.v1_7_R4.PathfinderGoalSelector;
-import net.minecraft.server.v1_7_R4.World;
+import net.minecraft.server.v1_8_R3.DamageSource;
+import net.minecraft.server.v1_8_R3.Entity;
+import net.minecraft.server.v1_8_R3.EntityHuman;
+import net.minecraft.server.v1_8_R3.EntityPig;
+import net.minecraft.server.v1_8_R3.PathfinderGoalFloat;
+import net.minecraft.server.v1_8_R3.PathfinderGoalHurtByTarget;
+import net.minecraft.server.v1_8_R3.PathfinderGoalLookAtPlayer;
+import net.minecraft.server.v1_8_R3.PathfinderGoalMeleeAttack;
+import net.minecraft.server.v1_8_R3.PathfinderGoalMoveTowardsRestriction;
+import net.minecraft.server.v1_8_R3.PathfinderGoalNearestAttackableTarget;
+import net.minecraft.server.v1_8_R3.PathfinderGoalRandomLookaround;
+import net.minecraft.server.v1_8_R3.PathfinderGoalRandomStroll;
+import net.minecraft.server.v1_8_R3.PathfinderGoalSelector;
+import net.minecraft.server.v1_8_R3.World;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_7_R4.util.UnsafeList;
+import org.bukkit.craftbukkit.v1_8_R3.util.UnsafeList;
 import org.bukkit.entity.Player;
 
 public class CustomEntityPig extends EntityPig {
@@ -46,10 +46,10 @@ public class CustomEntityPig extends EntityPig {
 		this.goalSelector.a(8, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 8.0F));
 		this.goalSelector.a(8, new PathfinderGoalRandomLookaround(this));
 		this.targetSelector.a(1, new PathfinderGoalHurtByTarget(this, true));
-		this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget(this, EntityHuman.class, 0, true));
+		//this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget(this, EntityHuman.class, 0, true));
 	}
 
-	@Override
+	/*@Override
 	public boolean n(Entity entity) {
 		double range = 1.0;
 		Location pigLoc = this.getBukkitEntity().getLocation();
@@ -59,7 +59,7 @@ public class CustomEntityPig extends EntityPig {
 		else {
 			return explode();
 		}
-	}
+	}*/
 
 	public boolean explode() {
 		Location pigLoc = this.getBukkitEntity().getLocation();
@@ -75,12 +75,12 @@ public class CustomEntityPig extends EntityPig {
 		return true;
 	}
 
-	@Override
+	/*@Override
 	public boolean damageEntity(DamageSource damagesource, float f) {
 		if (this.isInvulnerable()) {
 			return false;
 		} else {
 			return super.damageEntity(damagesource, f);
 		}
-	}
+	}*/
 }

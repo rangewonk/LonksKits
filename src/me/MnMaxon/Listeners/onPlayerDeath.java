@@ -28,7 +28,7 @@ import me.MnMaxon.LonksKits.Spectator;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftCreature;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftCreature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Horse;
@@ -51,8 +51,8 @@ public class onPlayerDeath implements Listener {
 	public void onDeath(PlayerDeathEvent e) {
 		if (e.getEntity().getWorld().equals(Locations.gameWorld))
 			e.setDeathMessage(null);
-		if (CloneManager.isClone(e.getEntity()))
-			return;
+		//if (CloneManager.isClone(e.getEntity()))
+			//return;
 		
 		/*if(PlayerListener.skipKill.containsKey(e.getEntity()))
 		{
@@ -74,7 +74,8 @@ public class onPlayerDeath implements Listener {
 			if (ent instanceof Wolf && ((Wolf) ent).getCustomName() != null
 					&& ((Wolf) ent).getCustomName().contains(e.getEntity().getName()))
 				((Wolf) ent).damage(999);
-		CloneManager.remove(e.getEntity());
+		//TODO: Fix NPCs
+		//CloneManager.remove(e.getEntity());
 		onInteract.removeMinions(e.getEntity());
 		MetaLists.CAN_JUMP.remove(e.getEntity());
 		DisguiseCraftMethods.unDisguise(e.getEntity());
@@ -89,14 +90,15 @@ public class onPlayerDeath implements Listener {
 				if (Death.getInfo(e.getEntity()).attackerName.equals("")) {
 					e.getEntity().sendMessage(ChatColor.DARK_RED + "You have been killed");
 				} else {
-					if (Shop.revengeZombieTimeLeft.containsKey(e.getEntity().getName()) && !oneVOne) {
+					//TODO: Fix NPCs
+					/*if (Shop.revengeZombieTimeLeft.containsKey(e.getEntity().getName()) && !oneVOne) {
 						Zombie zombie = e.getEntity().getWorld().spawn(e.getEntity().getLocation(), Zombie.class);
 						((CraftCreature) zombie).getHandle().getNavigation().d(false);
 						zombie.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 0, Integer.MAX_VALUE));
 						zombie.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1, Integer.MAX_VALUE));
 						zombie.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1, Integer.MAX_VALUE));
 						MetaLists.REVENGE_MOB.add(zombie, e.getEntity().getName());
-					}
+					}*/
 					int transferredPoints = (int) (Points.get(e.getEntity().getName()) * .03);
 					if (transferredPoints > 50)
 						transferredPoints = 50;
