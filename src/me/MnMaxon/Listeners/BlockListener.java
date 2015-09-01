@@ -32,6 +32,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.material.MaterialData;
 
 public class BlockListener implements Listener {
@@ -269,6 +270,16 @@ public class BlockListener implements Listener {
 					Main.signData.save();
 				}
 			}
+		}
+	}
+
+	@EventHandler
+	public void onExplode(EntityExplodeEvent e)
+	{
+		//Removes any block damage in game world.
+		if(Locations.gameWorld == e.getLocation().getWorld())
+		{
+			e.blockList().clear();
 		}
 	}
 }
