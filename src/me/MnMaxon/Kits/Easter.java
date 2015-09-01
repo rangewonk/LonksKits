@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -16,13 +17,14 @@ public class Easter extends Kit {
 	public Easter() {
 		super();
 		guiType = Material.EGG;
+		entType = EntityType.RABBIT;
 	}
 
 	@Override
 	public ItemStack[] getInvContents() {
 		int size = Bukkit.getServer().createInventory(null, InventoryType.PLAYER).getContents().length;
 		ItemStack[] cont = new ItemStack[size];
-		ItemStack carrot = easyItem(ChatColor.GOLD + "Carrot", Material.CARROT, 0, null, 1);
+		ItemStack carrot = easyItem(ChatColor.GOLD + "Carrot", Material.CARROT_ITEM, 0, null, 1);
 		carrot.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
 		carrot.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
 		ItemStack droppings = easyItem(ChatColor.GREEN + "Rabbit Droppings", Material.INK_SACK, 3, null, 1);

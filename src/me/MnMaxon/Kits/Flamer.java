@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 public class Flamer extends Kit {
 	public Flamer() {
 		super();
-		guiType = Material.FIRE;
+		guiType = Material.LAVA_BUCKET;
 	}
 
 	@Override

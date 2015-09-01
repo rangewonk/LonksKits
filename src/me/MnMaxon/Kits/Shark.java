@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 public class Shark extends Kit {
 	public Shark() {
 		super();
-		guiType = Material.WATER;
+		guiType = Material.WATER_BUCKET;
 	}
 
 	@Override

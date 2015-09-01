@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 public class Tele extends Kit {
 	public Tele() {
 		super();
-		guiType = Material.ENDER_PORTAL;
+		guiType = Material.ENDER_PORTAL_FRAME;
 	}
 
 	@Override

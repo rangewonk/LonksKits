@@ -14,7 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 public class HotHead extends Kit {
 	public HotHead() {
 		super();
-		guiType = Material.FIRE;
+		guiType = Material.LAVA_BUCKET;
 	}
 
 	@Override
