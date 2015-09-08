@@ -31,6 +31,7 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Horse;
+import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -52,7 +53,7 @@ public class onEntityDamageByEntity  implements Listener {
 			return;
 		else if (e.getDamager() instanceof Player){
 			Player p=(Player) e.getDamager();
-			if(Spectator.isSpectator(p) ||(e.getEntity instanceof ItemFrame&& !MetaLists.BYPASS_BUILD.contains(p))) {
+			if(Spectator.isSpectator(p) ||(e.getEntity() instanceof ItemFrame&& !MetaLists.BYPASS_BUILD.contains(p))) {
 				e.setCancelled(true);
 				return;
 			} 
