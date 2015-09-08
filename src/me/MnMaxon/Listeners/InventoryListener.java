@@ -33,7 +33,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class InventoryListener implements Listener {
 	public static final ArrayList<String> ignoredNames = new ArrayList<String>(Arrays.asList("spear", "wand", "lasso",
-			"grenade", "bomb", "switcher", "shuriken"));
+			"grenade", "bomb", "switcher", "shuriken", "pistol"));
 
 	@EventHandler
 	public void onInvClick(InventoryClickEvent e) {

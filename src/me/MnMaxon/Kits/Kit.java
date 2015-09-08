@@ -286,13 +286,13 @@ public class Kit {
 		Kit[] kitList = {  new Thor(), new PvP(), new Archer(), new Fisherman(), new Girl(), new Porcupine(), new Anvil(),
 				new Troll(), new Monkey(), new Casper(), new Switcher(), new Jumper(), new Chomp(), new Stimpy(),
 				new Jedi(), new Elder(), new Turtle(), new Spider(), new Builder(), new Spartan(), new Shooter(), new Berserker(),
-				new Spy(), new Snake(), new Hyper(), new Flamer(), new Mooshroom(), new Monk(),
-				new Ghost(), new Warrior(), new Necromancer(), new Sonic(), new Wolf(), new Ninja(),
+				new Spy(), new Snake(), new Wizard(), new Hyper(), new Flamer(), new Mooshroom(), new Monk(),
+				new Ghost(), new Warrior(), new Shadowblade(), new Necromancer(), new Sonic(), new Wolf(), new Ninja(),
 				new Viking(), new Kangaroo(), new BigFoot(), new Hulk(), new Heavy(), new HotHead(), new Grandma(),
 				new Superman(), new Tiger(), new Shark(), new Ripper(), new Pig(), new Hawkeye(), new Creeper(),
 				new Cowboy(), new Blink(), new Hooker(), new Snowman(), new Clone(), new Maverick(), new Assassin(),
-				new Dragon(), new Tele(), new Flinger(),
-				new Portastomp(), new BeastMaster(), new King(), new Easter(), new Legolas(), new John(), new UltimateDeath(), new Falcon()  };
+				new Dragon(), new Morter(), new Kamikaze(), new Tele(), new Killer(), new DemoMan(), new Flinger(),
+				new Portastomp(), new BeastMaster(), new Pirate(), new King(), new Easter(), new Legolas(), new John(), new UltimateDeath(), new Falcon()  };
 		for (Kit kit : kitList)
 			kits.put(kit.getName().toLowerCase(), kit);
 		kits.put(new OneVSOne().getName().toLowerCase(),new OneVSOne());

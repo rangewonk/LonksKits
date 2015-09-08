@@ -34,6 +34,7 @@ import me.MnMaxon.LonksKits.MetaLists;
 import me.MnMaxon.LonksKits.NickName;
 import me.MnMaxon.LonksKits.Spectator;
 import me.MnMaxon.LonksKits.TpCountdown;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -43,6 +44,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Horse.Variant;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
@@ -50,6 +52,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -804,5 +808,16 @@ public class PlayerListener implements Listener {
 					NickName.setCustomName(p);
 			}
 		}, 5L);
+	}//This Event Prevents players from crafting items in the kitpvp world.
+	@EventHandler
+	  	public void onCraft(PrepareItemCraftEvent e) {
+	       for (HumanEntity he : e.getViewers()) if (he.getWorld().equals(Locations.gameWorld)) {
+	            e.getInventory().setResult(new ItemStack(Material.AIR));
+	            return;
+	
+	}
+	  	
+ 	  
 	}
 }
+	

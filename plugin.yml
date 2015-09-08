@@ -220,3 +220,5 @@ commands:
     description: Gives you the Builder kit
   Thor:
     description: Gives you the Thor kit
+  Pirate:
+    description: Gives you the Pirate kit
