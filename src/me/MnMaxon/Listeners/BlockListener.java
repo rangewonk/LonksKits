@@ -18,6 +18,7 @@ import me.MnMaxon.LonksKits.Spectator;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -145,11 +146,13 @@ public class BlockListener implements Listener {
 						Main.changeBack.remove(loc);
 					}
 				}
-			}, 3 * 20L);
+			}, 3 * 20L);//This code is for teleporting players using Tele Kit.
 			for (Entity ent : e.getPlayer().getNearbyEntities(5, 256, 5)) {
 				if (!Locations.inSafe(ent.getLocation()) && ent instanceof LivingEntity) {
 					if (MetaLists.PLAYERS.contains(ent)) {
-						if (!(MetaLists.PLAYERS.get(ent) instanceof Tele) && !Spectator.isSpectator((Player) ent)) {
+						if (!(MetaLists.PLAYERS.get(ent) instanceof Tele) && !Spectator.isSpectator((Player) ent)
+								&& !((Player)ent).getGameMode().equals(GameMode.CREATIVE))
+							  
 							MetaLists.TP_AROUND.add(ent);
 							Death.update((Player) ent, e.getPlayer(), "was tele'd");
 							ent.teleport(loc);
@@ -168,7 +171,7 @@ public class BlockListener implements Listener {
 				}
 			}
 		}
-	}
+	
 
 	@EventHandler
 	public void onSignChange(SignChangeEvent e) {
