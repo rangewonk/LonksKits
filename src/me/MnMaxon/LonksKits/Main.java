@@ -252,6 +252,14 @@ public final class Main extends JavaPlugin {
 	}
 
 	public static void ClearKit(Player p) {
+		if (Spectator.isSpectator(p)){
+			Spectator.remove(p);
+			MetaLists.TP_AROUND.add(p);
+			p.teleport(Locations.spawn);
+			MetaLists.PLAYERS.add(p, null);
+			giveSpawnItems(p);
+			return;
+		}
 		if (p.getVehicle() != null && !(p.getVehicle() instanceof Player))
 			p.getVehicle().remove();
 		DisguiseCraftMethods.unDisguise(p);
@@ -330,7 +338,7 @@ public final class Main extends JavaPlugin {
 	public static String addColor(String string) {
 		if (string == null)
 			return null;
-		return string.replace("ง", "&").replace("&0", "" + ChatColor.BLACK).replace("&1", "" + ChatColor.DARK_BLUE)
+		return string.replace("ยง", "&").replace("&0", "" + ChatColor.BLACK).replace("&1", "" + ChatColor.DARK_BLUE)
 				.replace("&2", "" + ChatColor.DARK_GREEN).replace("&3", "" + ChatColor.DARK_AQUA)
 				.replace("&4", "" + ChatColor.DARK_RED).replace("&5", "" + ChatColor.DARK_PURPLE)
 				.replace("&6", "" + ChatColor.GOLD).replace("&7", "" + ChatColor.GRAY)
