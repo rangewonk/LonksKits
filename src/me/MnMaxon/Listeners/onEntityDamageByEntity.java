@@ -51,14 +51,13 @@ public class onEntityDamageByEntity  implements Listener {
 	public void onHit(EntityDamageByEntityEvent e) {
 		if (Locations.gameWorld == null || !e.getEntity().getWorld().equals(Locations.gameWorld))
 			return;
-		else if (e.getDamager() instanceof Player){
-			Player p=(Player) e.getDamager();
-			if(Spectator.isSpectator(p) ||(e.getEntity() instanceof ItemFrame&& !MetaLists.BYPASS_BUILD.contains(p))) {
+		else if (e.getDamager() instanceof Player&&Spectator.isSpectator((Player) e.getDamager())) {
 				e.setCancelled(true);
 				return;
-			} 
-		}
-		if (e.getEntity() instanceof Player && Locations.inSafe(e.getEntity().getLocation())) {
+		} else 		if(e.getEntity() instanceof ItemFrame&& !MetaLists.BYPASS_BUILD.contains(e.getDamager())) {
+				e.setCancelled(true);
+				return;
+		}else if (e.getEntity() instanceof Player && Locations.inSafe(e.getEntity().getLocation())) {
 				if (e.getDamager() instanceof Player)
 					((Player) e.getDamager()).sendMessage(Messages.SAFEZONE_IN);
 				e.setCancelled(true);
